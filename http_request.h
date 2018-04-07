@@ -14,6 +14,8 @@ typedef struct http_request{
     char *User_agent;
 } http_request;
 
-http_request parsing(int sockd);
+void parsing(int sockd, http_request *request);
+http_request *alloc_request();
+void free_request(http_request *msg);
 
 #endif //SERVER_CONTENTADAPTATION_HTTP_REQUEST_H

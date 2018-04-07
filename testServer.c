@@ -6,15 +6,13 @@
 #include "http_request.h"
 
 
-void str_srv_echo(int sockd);
-
 int main(int argc, char **argv)
 {
     pid_t			pid;
     int			listensd, connsd;
     struct sockaddr_in	servaddr, cliaddr;
     unsigned int		len;
-    http_request request;
+    http_request *request;
 
     if ((listensd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("errore in socket");
@@ -49,12 +47,11 @@ int main(int argc, char **argv)
                 exit(1);
             }
             printf("%s:%d connesso\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
-            request = parsing(connsd);	/* svolge il lavoro del server */
 
-            printf("GET: \n");
-            printf("%s\n", request.GET);
-            printf("ACCEPT: \n");
-            printf("%s\n", request.Accept);
+            request = alloc_request();
+            parsing(connsd, request);	/* svolge il lavoro del server */
+            printf("%s\n%s\n", request->GET, request->Accept);
+            free_request(request);
 
             if (close(connsd) == -1) {
                 perror("errore in close");
