@@ -2,9 +2,7 @@
 // Created by ale96 on 04/04/18.
 //
 
-#include "basics.h"
-#include "http_request.h"
-#include "server_io.h"
+#include "http_management.h"
 
 char* s = "\n";
 
