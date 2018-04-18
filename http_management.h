@@ -9,7 +9,7 @@
 #include "server_io.h"
 #include <fcntl.h>
 
-char* path_pages = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
+//char *path_pages = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
 
 typedef struct http_request{
     char *GET;
@@ -34,6 +34,14 @@ typedef struct http_response{
 void parsing(int sockd, http_request *request);
 http_request *alloc_request();
 void free_request(http_request *msg);
+char *parse_get(char *whole_msg);
+
+
+http_response *page_not_found(char *protocol);
+http_response *page_default(char *protocol);
+void parsing_response(int sockd, http_response *response);
+
+
 
 
 #endif //SERVER_CONTENTADAPTATION_HTTP_MANAGEMENT_H

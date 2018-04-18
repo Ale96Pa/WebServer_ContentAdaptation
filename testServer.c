@@ -13,6 +13,8 @@ int main(int argc, char **argv)
     struct sockaddr_in	servaddr, cliaddr;
     unsigned int		len;
     http_request *request;
+    http_response *response;
+    char *msg;
 
     if ((listensd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("errore in socket");
@@ -50,8 +52,18 @@ int main(int argc, char **argv)
 
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
-            printf("%s\n%s\n", request->GET, request->Accept);
+            //printf("%s\n ", request->GET);
+
+            msg = parse_get(request->GET);
+            //printf("%s \n", msg);
+
             free_request(request);
+
+//            response = malloc(sizeof(http_response));
+  //          response = page_not_found("HTTP/1.1");
+    //        parsing_response(connsd, response);
+      //      free(response);
+
 
             if (close(connsd) == -1) {
                 perror("errore in close");
