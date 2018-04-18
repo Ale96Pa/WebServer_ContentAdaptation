@@ -35,6 +35,9 @@ void parsing(int sockd, http_request *request);
 http_request *alloc_request();
 void free_request(http_request *msg);
 char *parse_get(char *whole_msg);
+char *parse_protocol(char *whole_msg);
+char *parse_host(char *whole_msg);
+char *parse_accept(char *whole_msg);
 
 
 http_response *page_not_found(char *protocol);

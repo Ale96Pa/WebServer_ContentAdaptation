@@ -2,6 +2,11 @@
 // Created by ale96 on 04/04/18.
 //
 
+//TODO: *- Host salta lettere
+//TODO: *- Controlla tutti errori
+//TODO: *- Manca user-agent da parsare (serve?!?)
+//TODO: *- Ripulisci codice, commenta, raggruppa funzioni, modularizza
+
 #include "http_management.h"
 
 
@@ -31,9 +36,32 @@ char *parse_get(char *whole_msg)
     //TODO: CONTROLLA ERRORI
     strtok(whole_msg, "?");
     value = strtok(NULL, ".");
-
     return value;
+}
 
+char *parse_protocol(char *whole_msg)
+{
+    char *value;
+    value = strstr(whole_msg, " HTTP");
+    return value;
+}
+
+char *parse_host(char *whole_msg)
+{
+    char *value;
+    //TODO: CONTROLLA ERRORI
+    strtok(whole_msg, " ");
+    value = strtok(NULL, "\n");
+    return value;
+}
+
+char *parse_accept(char *whole_msg)
+{
+    char *value;
+    strtok(whole_msg, "q=");
+    strtok(NULL, "q=");
+    value = strtok(NULL, "\n");
+    return value;
 }
 
 void parsing(int sockd, http_request *request)

@@ -52,10 +52,10 @@ int main(int argc, char **argv)
 
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
-            //printf("%s\n ", request->GET);
+            //printf("%s\n%s\n ", request->User_agent, request->Accept);
 
-            msg = parse_get(request->GET);
-            //printf("%s \n", msg);
+            msg = parse_accept(request->Accept);
+            printf("%s \n", msg);
 
             free_request(request);
 
