@@ -13,9 +13,11 @@ http_response *page_not_found(char *protocol)
     off_t dimension;
     int fd;
     char *body;
-    //TODO: risolvere problem con strcat e path assoluto salvato in una variabile
-    //char *path = strcpy(path, path_pages);
-    //strcat(path, "pageNotFound.html");
+/*
+    char *path = strcpy(path, path_pages);
+    strcat(path, "pageNotFound.html");
+    printf("qui arrivO: %s\n", path);
+    */
     char *path = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
 
 
@@ -35,10 +37,15 @@ http_response *page_not_found(char *protocol)
     read(fd, body, dimension);
     close(fd);
 
-    char *header = "HTTP/1.1 404 Not Found";
-    //header = strcat(protocol, " 404 Page Not Found");
-    header = "HTTP/1.1 404 Not Found\n";
+    //TODO: ASSOLUTAMENTE CAMBIA NOMI VARIABILI E AGGIUSTA
+    response->Header = malloc(sizeof(char)*100);
+    char *protocol_allocate=malloc(sizeof(char)*256);
+    *protocol_allocate = *protocol;     //TODO: APPARE SOLO H xk prende solo primo char di *protcol
+    char *header = strcat(protocol_allocate, " 404 Page Not Found");
     response->Header = header;
+    printf("%s\n ", response->Header);
+
+    /*
     //response.Date = mettere data con una opportuna funzione
     char *server = "Server: nomeServer test\n";
     response->Server = server;
@@ -46,9 +53,8 @@ http_response *page_not_found(char *protocol)
     response->Content_Type = "Content-Type: text/html\n";
     response->Connection = "Connection: close\n";
     response->Body_Response = body;
-
-    //free(body);
-
+*/
+  //  free(body);
     return response;
 }
 
@@ -64,7 +70,7 @@ http_response *page_default(char *protocol)
     char *path = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages/pageDefault.html";
 
     //body = malloc(sizeof(char)*1024);
-    response = malloc(sizeof(http_response));
+    //response = malloc(sizeof(http_response));
 
     if((fd = open(path, 0644, O_RDONLY))== -1)
     {
@@ -108,17 +114,15 @@ void parsing_response(int sockd, http_response *response)
     char effective_response[MAXLINE];
     int n; //number of bytes read
     char *p;
-/*
-    response->Server = NULL;
-    response->Header = NULL;
-    response->Content_Type = NULL;
-    response->Content_Length = NULL;
-    response->Connection = NULL;
-    response->Body_Response = NULL;
-    response->Last_Modified = NULL;
-    response->Date = NULL;
-*/
-    printf("qui arrivo, %d\n", 10);
+
+    response->Header = malloc(sizeof(char)*256);
+    response->Date = malloc(sizeof(char)*256);
+    response->Server = malloc(sizeof(char)*256);
+    response->Last_Modified = malloc(sizeof(char)*256);
+    response->Content_Length = malloc(sizeof(char)*256);
+    response->Content_Type = malloc(sizeof(char)*256);
+    response->Connection = malloc(sizeof(char)*256);
+    response->Body_Response = malloc(sizeof(char)*256);
 
     strcat(effective_response, response->Header);
     strcat(effective_response, response->Date);
@@ -129,8 +133,8 @@ void parsing_response(int sockd, http_response *response)
     strcat(effective_response, response->Connection);
     strcat(effective_response, response->Body_Response);
 
-    printf("%s\n", effective_response);
-    printf("qui arrivo, %d\n", strlen(effective_response));
+    //printf("%s\n", effective_response);
+    //printf("qui arrivo, %d\n", strlen(effective_response));
 
     //todo: mettere write nella socket
     writen(sockd, effective_response, strlen(effective_response)*sizeof(char));

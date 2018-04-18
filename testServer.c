@@ -50,19 +50,21 @@ int main(int argc, char **argv)
             }
             printf("%s:%d connesso\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
+// BEGIN PARSING REQUEST
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
             //printf("%s\n%s\n ", request->User_agent, request->Accept);
-
             msg = parse_accept(request->Accept);
-            printf("%s \n", msg);
-
+            //printf("%s \n", msg);
             free_request(request);
+// END PARSING REQUEST
 
-//            response = malloc(sizeof(http_response));
-  //          response = page_not_found("HTTP/1.1");
-    //        parsing_response(connsd, response);
-      //      free(response);
+
+            //response = malloc(sizeof(http_response));
+            response = page_not_found("HTTP/1.1");
+            parsing_response(connsd, response);
+            printf("%s\n ", response->Header);
+            free(response);
 
 
             if (close(connsd) == -1) {
