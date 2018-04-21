@@ -10,3 +10,5 @@
 
 #include <wand/magick_wand.h>
 #include "basics.h"
+
+void compress_image(void);

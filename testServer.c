@@ -63,8 +63,8 @@ int main(int argc, char **argv)
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
             //printf("%s\n%s\n ", request->GET, request->Host);
-            //msg = parse_get(request->GET);
-            //printf("%s \n", msg);
+            msg = parse_get(request->GET);
+            printf("%s \n", msg);
             //free_request(request);
             free(request);
 // END PARSING REQUEST

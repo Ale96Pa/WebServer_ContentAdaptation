@@ -1,3 +1,6 @@
+
+
+//TODO: *- Rivedere misure delle malloc
 //TODO: *- Host salta lettere e Protocol non funziona-- CONTROLLA DA' ERRORI !!!
 //TODO: *- Manca user-agent da parsare (serve?!?)
 //TODO: *- La funzione con la free e' necessaria?? NO, SI PUO' EVITARE

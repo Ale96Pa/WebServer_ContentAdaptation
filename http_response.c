@@ -4,7 +4,6 @@
 
 #include "http_management.h"
 
-//TODO: fare funzioni per allocazione e deallocazione
 //TODO: RIVEREDE MISURE DELLE MALLOC
 //TODO: CONTROLLA ERRORI
 //TODO: PROBLEMI IN data (la taglia), content-length (schifezze prima)
