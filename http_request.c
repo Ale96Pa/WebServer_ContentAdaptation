@@ -59,7 +59,7 @@ char *parse_protocol(char *msg_get)
 {
     char *protocol;
 
-    if((protocol = strstr(msg_get, " HTTP")) == NULL)
+    if((protocol = strstr(msg_get, "HTTP")) == NULL)
     {
         perror("Error in strstr while parsing GET for protocol\n");
         exit(EXIT_FAILURE);

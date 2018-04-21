@@ -4,10 +4,22 @@
 
 #include "http_management.h"
 
-//TODO: VEDERE BENE SE E' UN PROBLEMA LA CONCORRENZA QUANDO SI APRONO I FILES (i CURSORI VENGONO CONIDVISI?!?)
 //TODO: fare funzioni per allocazione e deallocazione
+//TODO: RIVEREDE MISURE DELLE MALLOC
+//TODO: CONTROLLA ERRORI
+//TODO: PROBLEMI IN data (la taglia), content-length (schifezze prima)
 
-char *path_pages = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
+char *header_html = "<!DOCTYPE html>\n"
+                    "<html>\n"
+                    "\n"
+                    "<head>\n"
+                    "\t<title> Adapt Image </title>\n"
+                    "</head>\n"
+                    "\n"
+                    "<body bgcolor=\"#f0f8ff\">\n"
+                    "\n"
+                    "\t<h2> Dynamic image adaptation </h2>\n"
+                    "\t<br><br>";
 
 /*
  * This function allocate memory for the whole response
@@ -26,58 +38,59 @@ http_response *alloc_response()
 }
 
 
-http_response *page_not_found(char *protocol)
+void page_not_found(char *protocol, http_response *response)
 {
-    http_response *response;
-    off_t dimension;
-    int fd;
-    char *body;
-/*
-    char *path = strcpy(path, path_pages);
-    strcat(path, "pageNotFound.html");
-    */
-
-    char *path;
-    path = malloc(sizeof(char)*100);
-    //*path = *path_pages;
-    //printf("%s\n", path_pages);
-
-
-    body = malloc(sizeof(char)*1024);
-    response = malloc(sizeof(http_response));
-
-    if((fd = open(path, 0644, O_RDONLY))== -1)
-    {
-        fprintf(stderr, "Error on opening file\n");
-    }
-    if((dimension = lseek(fd, 0, SEEK_END)) == -1)
-    {
-        fprintf(stderr, "Error on calculating file dimension\n");
-    }
-    //TODO: mettere controllo sulla read e su close
-    lseek(fd, 0, SEEK_SET);
-    read(fd, body, dimension);
-    close(fd);
-
-    //TODO: ASSOLUTAMENTE CAMBIA NOMI VARIABILI E AGGIUSTA
+    // Header field
     response->Header = malloc(sizeof(char)*100);
-    char *protocol_allocate=malloc(sizeof(char)*256);
-    *protocol_allocate = *protocol;     //TODO: APPARE SOLO H xk prende solo primo char di *protcol
-    char *header = strcat(protocol_allocate, " 404 Page Not Found");
+    char *protocol_allocate=malloc(sizeof(char)*100);
+    strcpy(protocol_allocate, protocol);
+    char *header = strcat(protocol_allocate, " 404 Not Found");
     response->Header = header;
-    //printf("%s\n ", response->Header);
 
-    /*
-    //response.Date = mettere data con una opportuna funzione
-    char *server = "Server: nomeServer test\n";
+    // Data field
+    char buf[1000];
+    time_t now = time(0);
+    struct tm tm = *gmtime(&now);
+    strftime(buf, sizeof buf, "%a, %d %b %Y %H:%M:%S %Z", &tm);
+    response->Date = malloc(sizeof(char)*100);
+    char dataHeader[] = "Data: ";
+    char *date = strcat(dataHeader, buf);
+    response->Date = date;
+
+    // Server field
+    response->Server = malloc(sizeof(char)*100);
+    char server[] = "Server: nomeServer test";
     response->Server = server;
-    //response->Content_Length = strcat("Content-Length: ", (char *)dimension);
-    response->Content_Type = "Content-Type: text/html\n";
-    response->Connection = "Connection: close\n";
+
+    // Content-Type field
+    response->Content_Type = malloc(sizeof(char)*100);
+    char type[] = "Content-Type: text/html";
+    response->Content_Type = type;
+
+    // Connection field
+    response->Connection = malloc(sizeof(char)*100);
+    char conn[] = "Connection: close";
+    response->Connection = conn;
+
+    // Body message
+    char *body = malloc(sizeof(char)*1024);
+    response->Body_Response = malloc(sizeof(char)*1024);
+    strcpy(body, header_html);
+    strcat(body, "404 PAGE NOT FOUND </body> </html>");
     response->Body_Response = body;
-*/
-  //  free(body);
-    return response;
+
+    // Content-Length field/
+    size_t len = strlen(body);
+    response->Content_Length = malloc(sizeof(char)*100);
+    char *lenTxt = malloc(sizeof(char)*100);
+    char lenHeader[] = "Content-Length: ";
+    char lenStr[8];
+    snprintf(lenStr, sizeof lenStr, "%zu", len);
+    strcat(lenTxt, lenHeader);
+    strcat(lenTxt, lenStr);
+    response->Content_Length = lenTxt;
+
+    return;
 }
 
 http_response *page_default(char *protocol)
@@ -122,54 +135,36 @@ http_response *page_default(char *protocol)
     response->Connection = "Connection: close";
     response->Body_Response = body;
 
-    //printf("%s\n", body);
-
-    //free(body);
-
 
     return response;
 
 }
 
-void parsing_response(int sockd, http_response *response)
-{
-    char effective_response[MAXLINE];
-    int n; //number of bytes read
-    char *p;
+void parsing_response(int sockd, http_response *response) {
 
-    response->Header = malloc(sizeof(char)*256);
-    response->Date = malloc(sizeof(char)*256);
-    response->Server = malloc(sizeof(char)*256);
-    response->Last_Modified = malloc(sizeof(char)*256);
-    response->Content_Length = malloc(sizeof(char)*256);
-    response->Content_Type = malloc(sizeof(char)*256);
-    response->Connection = malloc(sizeof(char)*256);
-    response->Body_Response = malloc(sizeof(char)*256);
+    char *effective_response = malloc(sizeof(char)*1024);
+    memset(effective_response, 0, sizeof(char)*1024);
 
     strcat(effective_response, response->Header);
+    strcat(effective_response ,"\n");
     strcat(effective_response, response->Date);
+    strcat(effective_response ,"\n");
     strcat(effective_response, response->Server);
-    strcat(effective_response, response->Last_Modified);
+    strcat(effective_response ,"\n");
+    //strcat(effective_response, response->Last_Modified);
     strcat(effective_response, response->Content_Length);
+    strcat(effective_response ,"\n");
     strcat(effective_response, response->Content_Type);
+    strcat(effective_response ,"\n");
     strcat(effective_response, response->Connection);
+    strcat(effective_response ,"\n");
+    strcat(effective_response ,"\n");
     strcat(effective_response, response->Body_Response);
 
-    //printf("%s\n", effective_response);
-    //printf("qui arrivo, %d\n", strlen(effective_response));
+    printf("%s \n", effective_response);
 
     //todo: mettere write nella socket
-    writen(sockd, effective_response, strlen(effective_response)*sizeof(char));
+    writen(sockd, effective_response, strlen(effective_response) * sizeof(char));
 
 
 }
-
-/*
-int main(void)
-{
-    fflush(stdout);
-    http_response *res = page_default("HTTP/1.1");
-    printf("%s\n%s\n", res->Content_Type, res->Body_Response);
-}
-*/
-

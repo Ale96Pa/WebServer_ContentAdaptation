@@ -62,19 +62,20 @@ int main(int argc, char **argv)
 // BEGIN PARSING REQUEST
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
-            printf("%s\n%s\n ", request->GET, request->Host);
-            msg = parse_protocol(request->Protocol);
+            //printf("%s\n%s\n ", request->GET, request->Host);
+            //msg = parse_get(request->GET);
             //printf("%s \n", msg);
             //free_request(request);
             free(request);
 // END PARSING REQUEST
 
-
-            //response = malloc(sizeof(http_response));
-            response = page_not_found("HTTP/1.1");
+// BEGIN RESPONSE
+            response = alloc_response();
+            page_not_found("HTTP/1.1", response);
+            printf("%s \n", response->Date);
             parsing_response(connsd, response);
-            printf("%s\n ", response->Header);
             free(response);
+// END RESPONSE
 
 
             if (close(connsd) == -1) {

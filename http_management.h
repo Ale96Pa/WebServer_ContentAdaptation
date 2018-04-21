@@ -8,8 +8,7 @@
 #include "basics.h"
 #include "server_io.h"
 #include <fcntl.h>
-
-//char *path_pages = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
+#include <time.h>
 
 typedef struct http_request{
     char *GET;
@@ -24,7 +23,7 @@ typedef struct http_response{
     char *Header;
     char *Date;
     char *Server;
-    char *Last_Modified;
+    //char *Last_Modified;
     char *Content_Length;
     char *Content_Type;
     char *Connection;
@@ -40,7 +39,8 @@ char *parse_host(char *whole_msg);
 char *parse_accept(char *whole_msg);
 
 
-http_response *page_not_found(char *protocol);
+http_response *alloc_response();
+void page_not_found(char *protocol, http_response *response);
 http_response *page_default(char *protocol);
 void parsing_response(int sockd, http_response *response);
 
