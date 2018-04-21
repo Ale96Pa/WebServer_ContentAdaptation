@@ -21,6 +21,14 @@ int main(int argc, char **argv)
         exit(1);
     }
 
+    // MESSO PER EVITARE ERRORE IN BIND
+    int tr=1;
+    // kill "Address already in use" error message
+    if (setsockopt(listensd,SOL_SOCKET,SO_REUSEADDR,&tr,sizeof(int)) == -1) {
+        perror("setsockopt");
+        exit(1);
+    }
+
     memset((void *)&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -50,20 +58,22 @@ int main(int argc, char **argv)
             }
             printf("%s:%d connesso\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
+
 // BEGIN PARSING REQUEST
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
-            //printf("%s\n%s\n ", request->GET, request->Accept);
-            msg = parse_accept(request->Accept);
+            printf("%s\n%s\n ", request->GET, request->Host);
+            msg = parse_protocol(request->Protocol);
             //printf("%s \n", msg);
-            free_request(request);
+            //free_request(request);
+            free(request);
 // END PARSING REQUEST
 
 
             //response = malloc(sizeof(http_response));
             response = page_not_found("HTTP/1.1");
             parsing_response(connsd, response);
-            //printf("%s\n ", response->Header);
+            printf("%s\n ", response->Header);
             free(response);
 
 

@@ -7,6 +7,25 @@
 //TODO: VEDERE BENE SE E' UN PROBLEMA LA CONCORRENZA QUANDO SI APRONO I FILES (i CURSORI VENGONO CONIDVISI?!?)
 //TODO: fare funzioni per allocazione e deallocazione
 
+char *path_pages = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
+
+/*
+ * This function allocate memory for the whole response
+ * @Param: none
+ * @Return: pointer to allocated struct for the request
+ */
+http_response *alloc_response()
+{
+    http_response *msg;
+    if((msg = malloc(sizeof(http_response))) == NULL)
+    {
+        perror("Error in malloc: struct for http_msg not allocated\n");
+        exit(EXIT_FAILURE);
+    }
+    return msg;
+}
+
+
 http_response *page_not_found(char *protocol)
 {
     http_response *response;
@@ -16,9 +35,12 @@ http_response *page_not_found(char *protocol)
 /*
     char *path = strcpy(path, path_pages);
     strcat(path, "pageNotFound.html");
-    printf("qui arrivO: %s\n", path);
     */
-    char *path = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages";
+
+    char *path;
+    path = malloc(sizeof(char)*100);
+    //*path = *path_pages;
+    //printf("%s\n", path_pages);
 
 
     body = malloc(sizeof(char)*1024);
@@ -43,7 +65,7 @@ http_response *page_not_found(char *protocol)
     *protocol_allocate = *protocol;     //TODO: APPARE SOLO H xk prende solo primo char di *protcol
     char *header = strcat(protocol_allocate, " 404 Page Not Found");
     response->Header = header;
-    printf("%s\n ", response->Header);
+    //printf("%s\n ", response->Header);
 
     /*
     //response.Date = mettere data con una opportuna funzione
