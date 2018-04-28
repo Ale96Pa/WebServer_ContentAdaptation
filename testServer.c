@@ -64,16 +64,17 @@ int main(int argc, char **argv)
             parsing(connsd, request);	/* svolge il lavoro del server */
             //printf("%s\n%s\n ", request->GET, request->Host);
             msg = parse_get(request->GET);
-            printf("%s \n", msg);
+            //printf("%s \n", msg);
             //free_request(request);
             free(request);
 // END PARSING REQUEST
 
 // BEGIN RESPONSE
             response = alloc_response();
-            page_not_found("HTTP/1.1", response);
-            printf("%s \n", response->Date);
+            page_bad_request("HTTP/1.1", response);
+            //printf("%s \n", response->Body_Response);
             parsing_response(connsd, response);
+            //printf("%s \n", response->Date);
             free(response);
 // END RESPONSE
 

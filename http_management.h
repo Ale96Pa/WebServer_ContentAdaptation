@@ -41,7 +41,8 @@ char *parse_accept(char *whole_msg);
 
 http_response *alloc_response();
 void page_not_found(char *protocol, http_response *response);
-http_response *page_default(char *protocol);
+void page_bad_request(char *protocol, http_response *response);
+void page_default(char *protocol, http_response *response, char *path);
 void parsing_response(int sockd, http_response *response);
 
 
