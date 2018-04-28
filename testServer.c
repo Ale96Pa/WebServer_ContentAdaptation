@@ -4,6 +4,7 @@
 
 #include "basics.h"
 #include "http_management.h"
+#include "logging.h"
 
 
 int main(int argc, char **argv)
@@ -63,20 +64,31 @@ int main(int argc, char **argv)
             request = alloc_request();
             parsing(connsd, request);	/* svolge il lavoro del server */
             //printf("%s\n%s\n ", request->GET, request->Host);
-            msg = parse_get(request->GET);
+            msg = parse_protocol(request->GET);
+
             //printf("%s \n", msg);
-            //free_request(request);
-            free(request);
+
 // END PARSING REQUEST
 
 // BEGIN RESPONSE
             response = alloc_response();
-            page_bad_request("HTTP/1.1", response);
+
+            page_default(msg, response, "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/images/test1.jpg");
+
             //printf("%s \n", response->Body_Response);
             parsing_response(connsd, response);
-            //printf("%s \n", response->Date);
-            free(response);
+
+            printf("%s \n", msg);
+
+            //printf("%s\n%s\n ", get, host);
+            //free(response);
 // END RESPONSE
+
+// BEGIN LOGGING
+            logging(request, response);
+            free(response);
+            free(request);
+// END LOGGING
 
 
             if (close(connsd) == -1) {

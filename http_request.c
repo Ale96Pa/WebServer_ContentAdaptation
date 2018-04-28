@@ -3,7 +3,6 @@
 //TODO: *- Rivedere misure delle malloc
 //TODO: *- Host salta lettere e Protocol non funziona-- CONTROLLA DA' ERRORI !!!
 //TODO: *- Manca user-agent da parsare (serve?!?)
-//TODO: *- La funzione con la free e' necessaria?? NO, SI PUO' EVITARE
 //TODO: *- si puo' risolvere il while con while(p) evitando l'indice i ???
 
 #include "http_management.h"
@@ -62,7 +61,7 @@ char *parse_protocol(char *msg_get)
 {
     char *protocol;
 
-    if((protocol = strstr(msg_get, "HTTP")) == NULL)
+    if((protocol = strstr(msg_get," HTTP")) == NULL)
     {
         perror("Error in strstr while parsing GET for protocol\n");
         exit(EXIT_FAILURE);

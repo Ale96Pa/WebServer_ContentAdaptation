@@ -44,6 +44,7 @@ void page_not_found(char *protocol, http_response *response)
     char *protocol_allocate=malloc(sizeof(char)*100);
     strcpy(protocol_allocate, protocol);
     char *header = strcat(protocol_allocate, " 404 Not Found");
+    free(protocol_allocate);
     response->Header = header;
 
     // Server field
@@ -227,10 +228,12 @@ void parsing_response(int sockd, http_response *response) {
     strcat(effective_response ,"\n");
     strcat(effective_response, response->Body_Response);
 
-    printf("%s \n", effective_response);
+    //printf("%s \n", effective_response);
 
-    //todo: mettere write nella socket
+    //todo: aggiustare write nella socket
     writen(sockd, effective_response, strlen(effective_response) * sizeof(char));
+
+    free(effective_response);
 
 
 }
