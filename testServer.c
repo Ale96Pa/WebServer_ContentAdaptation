@@ -1,10 +1,6 @@
-//
-// Created by ale96 on 04/04/18.
-//
-
-#include "basics.h"
-#include "http_management.h"
-#include "logging.h"
+#include "services/basics.h"
+#include "http/http_management.h"
+#include "logging/logging.h"
 
 
 int main(int argc, char **argv)
@@ -15,7 +11,7 @@ int main(int argc, char **argv)
     unsigned int		len;
     http_request *request;
     http_response *response;
-    char *msg;
+    char *msg1, *msg2, *msg3, *msg4, *msg5;
 
     if ((listensd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("errore in socket");
@@ -57,37 +53,40 @@ int main(int argc, char **argv)
                 perror("errore in close");
                 exit(1);
             }
-            printf("%s:%d connesso\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
+            //printf("%s:%d connesso\n", inet_ntoa(cliaddr.sin_addr), ntohs(cliaddr.sin_port));
 
 
 // BEGIN PARSING REQUEST
             request = alloc_request();
-            parsing(connsd, request);	/* svolge il lavoro del server */
-            //printf("%s\n%s\n ", request->GET, request->Host);
-            msg = parse_protocol(request->GET);
 
-            //printf("%s \n", msg);
+            parsing_request(connsd, request);	/* svolge il lavoro del server */
+            msg1 = parse_protocol(request->GET);
+            msg2 = parse_host(request->Host);
+            msg3 = parse_get(request->GET);
+            msg4 = parse_accept(request->Accept);
+            msg5 = parse_userAgent(request->User_agent);
 
 // END PARSING REQUEST
 
 // BEGIN RESPONSE
             response = alloc_response();
-
-            page_default(msg, response, "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/images/test1.jpg");
-
-            //printf("%s \n", response->Body_Response);
+            //page_not_found("HTTP/1.1", response);
+            //page_bad_request("HTTP/1.0", response);
+            page_no_content("HTTP/1.1", response);
+            //page_default("HTTP/1.1", response, "images/test1.jpg", "2018-5-78");
             parsing_response(connsd, response);
 
-            printf("%s \n", msg);
-
-            //printf("%s\n%s\n ", get, host);
-            //free(response);
 // END RESPONSE
 
 // BEGIN LOGGING
             logging(request, response);
-            free(response);
+/*
+            printf("begin msg: %s\n%s\n%s\n%s\n%s\n end msg\n", msg1, msg2, msg3, msg4, msg5);
+            printf("begin field: %s\n%s\n%s\n%s\n%s\n%s\nend field\n", request->User_agent,
+                request->GET, response->Last_Modified, response->Header, response->Date, request->Protocol);
+*/
             free(request);
+            free(response);
 // END LOGGING
 
 
