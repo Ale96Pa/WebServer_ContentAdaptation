@@ -1,7 +1,8 @@
 
 
-//TODO: *- Verifica se parsing di user agent va bene (prende solo il nome del browser)
-//TODO: *- parse_get e parse_userAgent NON funziona il restore del parametro (quindi li ho tolti)
+//TODO: *- parse_get e parse_userAgent NON funziona il restore del parametro (quindi li ho tolti) - FARE
+// (prova a fare strcat su restore)
+// TODO: *- metodo head da gestire nelle pagine
 
 
 #include "http_management.h"
@@ -33,6 +34,22 @@ http_request *alloc_request()
   * @Param: single message
   * @Return: string including information
   */
+char *parse_method(char *msg_method)
+{
+    char *method;
+    char restore[DIM_LONG];
+    strcpy(restore, msg_method);
+
+    if((method = strtok(restore," ")) == NULL)
+    {
+        perror("Error in strtok while parsing method\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //strcpy(msg_method, restore);
+    //printf("%s\n", method);
+    return method;
+}
 char *parse_get(char *msg_get)
 {
     char *resource;
@@ -165,7 +182,7 @@ void parsing_request(int sockd, http_request *request)
         perror("Error in parsing: bad request\n");
         exit(EXIT_FAILURE);
     }
-    strcpy(request->GET, p);
+    strcpy(request->Method, p);
 
     while(i != 4)
     {

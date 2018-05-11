@@ -2,7 +2,6 @@
 
 //TODO: non si vede immagine nella pagina di default (html?) ===> Prova a risolvere inviando la pagina html come file
 //TODO: METODO HEAD
-//TODO: page_no_content non invia la pagina (why?) -- nel caso togliere
 
 char *header_html = "<!DOCTYPE html>\n"
                     "<html>\n"
@@ -120,61 +119,6 @@ void page_bad_request(char *protocol, http_response *response)
     char *body = malloc(sizeof(char)*DIM_HTML);
     strcpy(body, header_html);
     strcat(body, "<br><h1><b><center>error 300 BAD REQUEST</center></b></h1></body></html>");
-    strcpy(response->Body_Response, body);
-
-    // Content-Length field/
-    size_t len = strlen(body);
-    char *lenTxt = malloc(sizeof(char)*DIM_SHORT);
-    char lenHeader[] = "Content-Length: ";
-    char lenStr[8];
-    snprintf(lenStr, sizeof lenStr, "%zu", len);
-    strcat(lenTxt, lenHeader);
-    strcat(lenTxt, lenStr);
-    strcpy(response->Content_Length, lenTxt);
-
-    // Data field
-    char buf[DIM_LONG];
-    time_t now = time(0);
-    struct tm tm = *gmtime(&now);
-    strftime(buf, sizeof buf, "%a, %d %b %Y %H:%M:%S %Z", &tm);
-    char dataHeader[] = "Data: ";
-    char *date = strcat(dataHeader, buf);
-    strcpy(response->Date, date);
-}
-
-/**
-  * This function manages the no-content response, setting the response
-  * @Param: protocol, struct to set
-  * @Return: void
-  */
-void page_no_content(char *protocol, http_response *response)
-{
-    // Header field
-    char *protocol_allocate=malloc(sizeof(char)*DIM_SHORT);
-    strcpy(protocol_allocate, protocol);
-    char *header = strcat(protocol_allocate, " 204 No Content");
-    strcpy(response->Header, header);
-
-    // Server field
-    char server[] = "Server: nomeServer test";
-    strcpy(response->Server, server);
-
-    // Content-Type field
-    char type[] = "Content-Type: text/html";
-    strcpy(response->Content_Type, type);
-
-    // Connection field
-    char conn[] = "Connection: close";
-    strcpy(response->Connection, conn);
-
-    // Last-modified field
-    char lm[] = "Last-Modified: NULL";
-    strcpy(response->Last_Modified, lm);
-
-    // Body message
-    char *body = malloc(sizeof(char)*DIM_HTML);
-    strcpy(body, header_html);
-    strcat(body, "<br><h1><b><center>error 204 NO CONTENT</center></b></h1></body></html>");
     strcpy(response->Body_Response, body);
 
     // Content-Length field/

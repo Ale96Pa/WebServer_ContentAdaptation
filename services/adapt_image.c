@@ -4,8 +4,8 @@
 
 //TODO: Adattare dimensioni immagini in base ai dispositivi (usando WURFL)
 //TODO: Aggiustare dimensioni malloc (o sostituirle con buffer)
-//TODO: controllo degli errori
 //TODO: aggiungi possibilita' di cambiare formato
+//TODO: controlla il controllo degli errori
 
 
 char *global_path = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/images/";
@@ -112,7 +112,7 @@ void compress_image(char *source, double q, char *destination, char *format)
 }
 
 
-
+/*
 void main (void)
 {
     char *path = malloc(sizeof(char)*100);
@@ -121,3 +121,4 @@ void main (void)
     free(path);
 
 }
+ */

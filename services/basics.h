@@ -12,3 +12,4 @@
 #define SERV_PORT	5193
 #define BACKLOG		10
 #define MAXLINE		1024
+#define NUMBER_CHILD 5

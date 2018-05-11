@@ -1,0 +1,12 @@
+Host: 127.0.0.1:5193 - - Fri May 11 17:14:10 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:14:58 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:16:01 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:16:46 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:17:56 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:18:47 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:18:54 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:19:07 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:20:54 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:21:15 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:21:41 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
+Host: 127.0.0.1:5193 - - Fri May 11 17:22:41 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215

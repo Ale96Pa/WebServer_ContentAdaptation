@@ -11,7 +11,7 @@
 #define DIM_HTML 1024   // Length of html page for the response
 
 typedef struct http_request{
-    char GET[DIM_LONG];
+    char Method[DIM_LONG];
     char Protocol[DIM_SHORT];
     char Host[DIM_SHORT];
     char User_agent[DIM_LONG];
@@ -31,6 +31,7 @@ typedef struct http_response{
 } http_response;
 
 http_request *alloc_request();
+char *parse_method(char *whole_msg);
 char *parse_get(char *whole_msg);
 char *parse_protocol(char *whole_msg);
 char *parse_host(char *whole_msg);

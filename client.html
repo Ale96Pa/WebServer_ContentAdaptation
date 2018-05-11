@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> Adapt Image </title>
+</head>
+
+<body bgcolor="#f0f8ff">
+
+<form method="get" action="http://127.0.0.1:5193home/ale96/Documents/internetWeb/project/client.html" id="request_url">
+
+	<h2> Dynamic image adaptation </h2>
+	<h4> Choose an image and we adapt it! </h4>
+	<br><br>
+	<fieldset>
+		<legend> Choose an image or insert your URL </legend>
+		<label for="url">URL:  </label>
+		<input type="text" name="url" id="url">
+		<br><br><br>
+		<input name="send" type="submit" id="send" value="Send" class="btn btn-info">
+		<input name="reset" type="reset" id="reset" value="Reset" class="btn btn-warning">
+	</fieldset>
+</form>
+<br><br><br>
+
+<a href="Server_ContentAdaptation/images/test2.jpg">test</a>
+
+<form method="get" action="http://127.0.0.1:5193home/ale96/Documents/internetWeb/project/client.html" id="request_img">
+
+	<input type="image" name="img1" value="img1" alt="img1" src="Server_ContentAdaptation/images/test1.jpg" width="200" height="170" border="2">
+	<label align="img1"> Title = ??</label> 
+
+	<br>
+	...
+	High = ??
+	Width = ??
+	What else ??
+
+</form> 	
+<br><br><br>
+
+<form method="get" action="http://127.0.0.1:5193home/ale96/Documents/internetWeb/project/client.html" id="request_img">
+
+	<input type="image" name="img2" value="img2" alt="img2" src="Server_ContentAdaptation/images/test2.jpg" width="200" height="170" border="2">
+	<label align="img2"> Title = ?? </label> 
+
+	<br>
+	...
+	High = ??
+	Width = ??
+	What else ??
+
+</form>
+<br><br><br>
+
+<form method="get" action="http://127.0.0.1:5193home/ale96/Documents/internetWeb/project/client.html" id="request_img">
+
+	<input type="image" name="img3" value="img3" alt="img3" src="Server_ContentAdaptation/images/test3.jpeg" width="200" height="170" border="2">
+	<label align="img3"> Title = ?? </label> 
+
+	<br>
+	...
+	High = ??
+	Width = ??
+	What else ??
+</form>
+</body>
+</html>

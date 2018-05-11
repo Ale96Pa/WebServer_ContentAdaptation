@@ -2,14 +2,13 @@
 // Created by ale96 on 28/04/18.
 //
 
-//TODO: DECOMMENTARE syslog quando andra' bene
-//TODO: Aggiungi commenti fatti bene (into he functions)
+//TODO: DECOMMENTARE syslog quando andra' bene (http management totalmente finito)
 //TODO: dopo l'HOST va a capo
 
 #include "logging.h"
 
 /**
- * This function is used to set the log
+ * This function is used to set the log to use it
  * @Param: none
  * @Return: void
  */
@@ -62,20 +61,22 @@ char *get_date()
  */
 void logging(http_request *req, http_response *res)
 {
-
     char *date = get_date();
     char log_path[128];
     FILE *log_file;
-    pthread_mutex_t mtx;
 
+    // Initialize the mutex used for the logging
+    pthread_mutex_t mtx;
     pthread_mutex_init(&mtx, NULL);
     pthread_mutex_lock(&mtx);
+
+    // Set the REAL log
     set_log();
     //syslog(LOG_INFO, "%s %s %s %s '%s' %s %s", req->Host, "-", "-", date, req->GET, res->Header, res->Content_Length);
     closelog();
 
+    // Set the LOCAL FILE log
     memset(log_path, 0, 128);
-
     errno = 0;
     if (getcwd(log_path, 128) == NULL || errno != 0) {
         perror("getcwd error\n");
@@ -89,10 +90,10 @@ void logging(http_request *req, http_response *res)
         return;
     }
 
-    fprintf(log_file, "%s %s %s %s '%s' %s %s\n", req->Host, "-", "-", date, req->GET, res->Header, res->Content_Length);
+    fprintf(log_file, "%s %s %s %s '%s' %s %s\n", req->Host, "-", "-", date, req->Method, res->Header, res->Content_Length);
 
+    // Deallocation of file and mutex
     fclose(log_file);
-
     pthread_mutex_unlock(&mtx);
     pthread_mutex_destroy(&mtx);
 }
