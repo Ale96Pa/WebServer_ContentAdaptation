@@ -90,7 +90,7 @@ void logging(http_request *req, http_response *res)
         return;
     }
 
-    fprintf(log_file, "%s %s %s %s '%s' %s %s\n", req->Host, "-", "-", date, req->Method, res->Header, res->Content_Length);
+    fprintf(log_file, "%s %s %s %s '%s' %s %s\n", req->Host, "-", "-", date, req->Request, res->Header, res->Content_Length);
 
     // Deallocation of file and mutex
     fclose(log_file);

@@ -1,7 +1,7 @@
 #include "http_management.h"
 
 //TODO: non si vede immagine nella pagina di default (html?) ===> Prova a risolvere inviando la pagina html come file
-//TODO: METODO HEAD
+//TODO: METODO HEAD: gestione
 
 char *header_html = "<!DOCTYPE html>\n"
                     "<html>\n"

@@ -1,10 +1,3 @@
-
-
-//TODO: *- parse_get e parse_userAgent NON funziona il restore del parametro (quindi li ho tolti) - FARE
-// (prova a fare strcat su restore)
-// TODO: *- metodo head da gestire nelle pagine
-
-
 #include "http_management.h"
 
 // This char is used as SPLITTER for the whole http message
@@ -37,36 +30,44 @@ http_request *alloc_request()
 char *parse_method(char *msg_method)
 {
     char *method;
-    char restore[DIM_LONG];
+    char *method_restore = malloc(sizeof(char)*DIM_SHORT);
+    char *restore = malloc(sizeof(char)*DIM_LONG);
     strcpy(restore, msg_method);
 
-    if((method = strtok(restore," ")) == NULL)
+    if((method = strtok(msg_method," ")) == NULL)
     {
-        perror("Error in strtok while parsing method\n");
+        fprintf(stderr, "Error in strtok while parsing method\n");
         exit(EXIT_FAILURE);
     }
 
-    //strcpy(msg_method, restore);
-    //printf("%s\n", method);
-    return method;
+    strcpy(method_restore, method);
+    strcpy(msg_method, restore);
+    free(restore);
+    return method_restore;
 }
 char *parse_get(char *msg_get)
 {
     char *resource;
+    char *resource_restore = malloc(sizeof(char)*DIM_SHORT);
+    char *restore = malloc(sizeof(char)*DIM_LONG);
+    strcpy(restore, msg_get);
 
     if((strtok(msg_get, "?")) == NULL)
     {
-        perror("Error in strotk while parsing GET field: BAD REQUEST\n");
+        fprintf(stderr, "Error in strotk while parsing GET field: BAD REQUEST\n");
         // rimanda a pagina BAD REQUEST
         exit(EXIT_FAILURE);
     }
     if((resource = strtok(NULL, ".")) == NULL)
     {
-        perror( "Error in strtok while parsing GET field\n");
+        fprintf(stderr, "Error in strtok while parsing GET field\n");
         exit(EXIT_FAILURE);
     }
 
-    return resource;
+    strcpy(resource_restore, resource);
+    strcpy(msg_get, restore);
+    free(restore);
+    return resource_restore;
 }
 
 char *parse_protocol(char *msg_get)
@@ -77,7 +78,7 @@ char *parse_protocol(char *msg_get)
 
     if((protocol = strstr(msg_get,"HTTP")) == NULL)
     {
-        perror("Error in strstr while parsing GET for protocol\n");
+        fprintf(stderr, "Error in strstr while parsing GET for protocol\n");
         exit(EXIT_FAILURE);
     }
 
@@ -93,13 +94,13 @@ char *parse_host(char *msg_host)
 
     if((strtok(msg_host, " ")) == NULL)
     {
-        perror("Error in strtok while parsing Host\n");
+        fprintf(stderr, "Error in strtok while parsing Host\n");
         // rimanda a bad request
         exit(EXIT_FAILURE);
     }
     if((host = strtok(NULL, "\n")) == NULL)
     {
-        perror("Error in strtok while parsing Host field\n");
+        fprintf(stderr, "Error in strtok while parsing Host field\n");
         exit(EXIT_FAILURE);
     }
 
@@ -115,25 +116,25 @@ char *parse_accept(char *msg_accept)
 
     if((strtok(msg_accept, "q=")) == NULL)
     {
-        perror("Error in strtok while parsing Accept field\n");
+        fprintf(stderr, "Error in strtok while parsing Accept field\n");
         // rimanda bad request
         exit(EXIT_FAILURE);
     }
     if((strtok(NULL, "q=")) == NULL)
     {
-        perror("Error in strtok while searching factor q\n");
+        fprintf(stderr, "Error in strtok while searching factor q\n");
         // rimanda bad request
         exit(EXIT_FAILURE);
     }
     if((q = strtok(NULL, "\n")) == NULL)
     {
-        perror("Error in strtok while searching factor q\n");
+        fprintf(stderr, "Error in strtok while searching factor q\n");
         // rimanda bad request
         exit(EXIT_FAILURE);
     }
     if((q = strtok(q, "=")) == NULL)
     {
-        perror("Error in strtok while searching factor q\n");
+        fprintf(stderr, "Error in strtok while searching factor q\n");
         // rimanda bad request
         exit(EXIT_FAILURE);
     }
@@ -145,19 +146,25 @@ char *parse_accept(char *msg_accept)
 char *parse_userAgent(char *msg_userAgent)
 {
     char *user_agent;
+    char *ua_restore = malloc(sizeof(char)*DIM_SHORT);
+    char *restore = malloc(sizeof(char)*DIM_LONG);
+    strcpy(restore, msg_userAgent);
 
     if((strtok(msg_userAgent, " ")) == NULL)
     {
-        perror("Error in strtok while parsing User-Agent\n");
+        fprintf(stderr, "Error in strtok while parsing User-Agent\n");
         exit(EXIT_FAILURE);
     }
     if((user_agent = strtok(NULL, " ")) == NULL)
     {
-        perror("Error in strtok while parsing User-Agent\n");
+        fprintf(stderr, "Error in strtok while parsing User-Agent\n");
         exit(EXIT_FAILURE);
     }
 
-    return user_agent;
+    strcpy(ua_restore, user_agent);
+    strcpy(msg_userAgent, restore);
+    free(restore);
+    return ua_restore;
 }
 
 /**
@@ -179,10 +186,10 @@ void parsing_request(int sockd, http_request *request)
 
     if((p = strtok(line, s)) == NULL) // Takes the first row (so GET field)
     {
-        perror("Error in parsing: bad request\n");
+        fprintf(stderr, "Error in parsing: bad request\n");
         exit(EXIT_FAILURE);
     }
-    strcpy(request->Method, p);
+    strcpy(request->Request, p);
 
     while(i != 4)
     {

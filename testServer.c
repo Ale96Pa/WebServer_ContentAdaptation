@@ -58,12 +58,11 @@ int main(int argc, char **argv)
 
 // BEGIN PARSING REQUEST
             request = alloc_request();
-
             parsing_request(connsd, request);	/* svolge il lavoro del server */
-            msg0 = parse_method(request->Method);
-            msg1 = parse_protocol(request->Method);
+            msg0 = parse_method(request->Request);
+            msg1 = parse_protocol(request->Request);
             msg2 = parse_host(request->Host);
-            msg3 = parse_get(request->Method);
+            msg3 = parse_get(request->Request);
             msg4 = parse_accept(request->Accept);
             msg5 = parse_userAgent(request->User_agent);
 
@@ -80,11 +79,11 @@ int main(int argc, char **argv)
 
 // BEGIN LOGGING
             logging(request, response);
-            printf("%s\n", msg0);
+
+            printf("begin msg:\n%s\n%s\n%s\n%s\n%s\n%s\nend msg\n%s\n%s\n", msg0, msg1, msg2, msg3, msg4, msg5, request->Request, request->User_agent);
 /*
-            printf("begin msg: %s\n%s\n%s\n%s\n%s\n end msg\n", msg1, msg2, msg3, msg4, msg5);
             printf("begin field: %s\n%s\n%s\n%s\n%s\n%s\nend field\n", request->User_agent,
-                request->GET, response->Last_Modified, response->Header, response->Date, request->Protocol);
+                request->Request, response->Last_Modified, response->Header, response->Date, request->Protocol);
 */
             free(request);
             free(response);
