@@ -1,7 +1,7 @@
 #include "http_management.h"
 
 //TODO: non si vede immagine nella pagina di default (html?) ===> Prova a risolvere inviando la pagina html come file
-//TODO: METODO HEAD: gestione
+//TODO: aggiustare write nella socket (usare write_line del prof ??)
 
 char *header_html = "<!DOCTYPE html>\n"
                     "<html>\n"
@@ -35,7 +35,7 @@ http_response *alloc_response()
   * @Param: protocol, struct to set
   * @Return: void
   */
-void page_not_found(char *protocol, http_response *response)
+void page_not_found(char *protocol, char *method, http_response *response)
 {
     // Header field
     char *protocol_allocate=malloc(sizeof(char)*DIM_SHORT);
@@ -62,9 +62,13 @@ void page_not_found(char *protocol, http_response *response)
 
     // Body message
     char *body = malloc(sizeof(char)*DIM_HTML);
-    strcpy(body, header_html);
-    strcat(body, "<br><h1><b><center>error 404 PAGE NOT FOUND</center></b></h1></body></html>");
-    strcpy(response->Body_Response, body);
+    if (strcmp(method, "HEAD") == 0) {
+        strcpy(response->Body_Response, "");
+    } else {
+        strcpy(body, header_html);
+        strcat(body, "<br><h1><b><center>error 404 PAGE NOT FOUND</center></b></h1></body></html>");
+        strcpy(response->Body_Response, body);
+    }
 
     // Content-Length field/
     size_t len = strlen(body);
@@ -91,7 +95,7 @@ void page_not_found(char *protocol, http_response *response)
   * @Param: protocol, struct to set
   * @Return: void
   */
-void page_bad_request(char *protocol, http_response *response)
+void page_bad_request(char *protocol, char *method, http_response *response)
 {
     // Header field
     char *protocol_allocate=malloc(sizeof(char)*DIM_SHORT);
@@ -117,9 +121,13 @@ void page_bad_request(char *protocol, http_response *response)
 
     // Body message
     char *body = malloc(sizeof(char)*DIM_HTML);
-    strcpy(body, header_html);
-    strcat(body, "<br><h1><b><center>error 300 BAD REQUEST</center></b></h1></body></html>");
-    strcpy(response->Body_Response, body);
+    if (strcmp(method, "HEAD") == 0) {
+        strcpy(response->Body_Response, "");
+    } else {
+        strcpy(body, header_html);
+        strcat(body, "<br><h1><b><center>error 300 BAD REQUEST</center></b></h1></body></html>");
+        strcpy(response->Body_Response, body);
+    }
 
     // Content-Length field/
     size_t len = strlen(body);
@@ -146,7 +154,7 @@ void page_bad_request(char *protocol, http_response *response)
   * @Param: protocol, struct to set, path of the image to send, last modified field
   * @Return: void
   */
-void page_default(char *protocol, http_response *response, char *path, char *last_modified)
+void page_default(char *protocol, char *method, http_response *response, char *path, char *last_modified)
 {
     // Header field
     char *protocol_allocate=malloc(sizeof(char)*DIM_SHORT);
@@ -168,11 +176,15 @@ void page_default(char *protocol, http_response *response, char *path, char *las
 
     // Body message
     char *body = malloc(sizeof(char)*DIM_HTML);
-    strcpy(body, header_html);
-    strcat(body, "<img src=\"");
-    strcat(body, path);
-    strcat(body, "\"/>\n</body>\n</html>\n");
-    strcpy(response->Body_Response, body);
+    if (strcmp(method, "HEAD") == 0) {
+        strcpy(response->Body_Response, "");
+    } else {
+        strcpy(body, header_html);
+        strcat(body, "<img src=\"");
+        strcat(body, path);
+        strcat(body, "\"/>\n</body>\n</html>\n");
+        strcpy(response->Body_Response, body);
+    }
 
     // Content-Length field
     size_t len = strlen(body);

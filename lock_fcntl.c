@@ -1,5 +1,4 @@
-#include <fcntl.h>
-#include "services/basics.h"
+#include "server.h"
 
 static struct flock	lock_it, unlock_it;
 static int		lock_fd = -1;

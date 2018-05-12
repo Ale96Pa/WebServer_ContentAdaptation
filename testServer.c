@@ -70,9 +70,9 @@ int main(int argc, char **argv)
 
 // BEGIN RESPONSE
             response = alloc_response();
-            //page_not_found("HTTP/1.1", response);
-            page_bad_request(msg1, response);
-            //page_default("HTTP/1.1", response, "images/test1.jpg", "2018-5-78");
+            //page_not_found(msg1, msg0, response);
+            //page_bad_request(msg1, msg0, response);
+            page_default(msg1, msg0, response, "images/test1.jpg", "2018-5-78");
             parsing_response(connsd, response);
 
 // END RESPONSE

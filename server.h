@@ -1,7 +1,3 @@
-//
-// Created by ale96 on 11/05/18.
-//
-
 #ifndef SERVER_CONTENTADAPTATION_SERVER_H
 #define SERVER_CONTENTADAPTATION_SERVER_H
 
@@ -10,8 +6,15 @@
 #include "services/basics.h"
 #include "logging/logging.h"
 #include "http/http_management.h"
-#include "prefork_flock.h"
 #include <signal.h>
 #include <sys/wait.h>
+#include <fcntl.h>
+
+// Definire qui le costanti
+
+pid_t child_make(int i, int listenfd, int addrlen);
+void my_lock_init(char *pathname);
+void my_lock_wait();
+void my_lock_release();
 
 #endif //SERVER_CONTENTADAPTATION_SERVER_H

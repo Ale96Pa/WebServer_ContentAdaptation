@@ -1,51 +1,0 @@
-Host: 127.0.0.1:5193 - - Fri May 11 17:14:10 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:14:58 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:16:01 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:16:46 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:17:56 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:18:47 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:18:54 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:19:07 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:20:54 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:21:15 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:21:41 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Fri May 11 17:22:41 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:16:22 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=174&img1.y=76 HTTP/1.1' HTTP/1.1 300 Bad Request (¬õæ£Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:18:28 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=177&img1.y=95 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:20:25 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=148&img1.y=82 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:27:12 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=108&img1.y=79 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:27:43 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=124&img1.y=82 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:29:09 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=122&img1.y=49 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:29:52 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=190&img1.y=60 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:30:47 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=142&img1.y=38 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:32:11 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:33:22 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=102&img1.y=60 HTTP/1.1' HTTP/1.1 300 Bad Request (ì¡¾Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:36:35 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request (¬Žý|Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:37:04 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=141&img1.y=52 HTTP/1.1' HTTP/1.1 300 Bad Request (ì,&”Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:37:40 2018 'GET //home/ale96/Documents/internetWeb/project/client.html' HTTP/1.1 300 Bad Request (\11Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:37:59 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=126&img1.y=86 HTTP/1.1' HTTP/1.1 300 Bad Request (<vŠÒContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:38:32 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=141&img1.y=118 HTTP/1.1' HTTP/1.1 300 Bad Request (Í”SContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:39:20 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=141&img1.y=77 HTTP/1.1' HTTP/1.1 300 Bad Request (qwyContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:41:14 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=87&img1.y=59 HTTP/1.1' HTTP/1.1 300 Bad Request (<ío÷Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:42:24 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=124&img1.y=84 HTTP/1.1' HTTP/1.1 300 Bad Request (LÙ_-Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:45:00 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=110&img1.y=90 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:45:42 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=98&img1.y=71 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:49:47 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=178&img1.y=87 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:50:32 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=102&img1.y=76 HTTP/1.1' HTTP/1.1 300 Bad Request (Ü$m;Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:51:06 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=128&img1.y=81 HTTP/1.1' HTTP/1.1 300 Bad Request (,wMÊContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:51:37 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=115&img1.y=56 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:51:55 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=180&img1.y=91 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:52:38 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=106&img1.y=103 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:53:51 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=166&img1.y=57 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:54:06 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=129&img1.y=52 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:55:27 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=139&img1.y=104 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:56:11 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=110&img1.y=36 HTTP/1.1' HTTP/1.1 300 Bad Request (üJÊContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:57:22 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=139&img1.y=108 HTTP/1.1' HTTP/1.1 300 Bad Request (,cÒContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:57:49 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=129&img1.y=49 HTTP/1.1' HTTP/1.1 300 Bad Request (ÜFçü~Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:58:31 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=146&img1.y=93 HTTP/1.1' HTTP/1.1 300 Bad Request (<Õ5¸Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:59:01 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=166&img1.y=85 HTTP/1.1' HTTP/1.1 300 Bad Request (oÀáContent-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 10:59:52 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=167&img1.y=104 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 11:00:07 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=175&img1.y=97 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 11:01:15 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=139&img1.y=58 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 11:02:57 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=163&img1.y=69 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215
-Host: 127.0.0.1:5193 - - Sat May 12 11:03:18 2018 'GET //home/ale96/Documents/internetWeb/project/client.html?img1.x=155&img1.y=84 HTTP/1.1' HTTP/1.1 300 Bad Request Content-Length: 215

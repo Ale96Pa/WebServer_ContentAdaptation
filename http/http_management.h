@@ -40,10 +40,9 @@ void parsing_request(int sockd, http_request *request);
 
 
 http_response *alloc_response();
-void page_not_found(char *protocol, http_response *response);
-void page_bad_request(char *protocol, http_response *response);
-void page_no_content(char *protocol, http_response *response);
-void page_default(char *protocol, http_response *response, char *path, char *last_modified);
+void page_not_found(char *protocol, char *method, http_response *response);
+void page_bad_request(char *protocol, char *method, http_response *response);
+void page_default(char *protocol, char *method, http_response *response, char *path, char *last_modified);
 void parsing_response(int sockd, http_response *response);
 
 

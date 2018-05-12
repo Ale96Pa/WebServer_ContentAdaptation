@@ -1,5 +1,8 @@
 #include "http_management.h"
 
+//TODO: controllo su ciclio while finale (se non setta tutti i parametri ==> BAD REQUEST)
+//todo: aggiustare read dalla socket (usare read_line del prof?? )
+
 // This char is used as SPLITTER for the whole http message
 char* s = "\n";
 
@@ -181,7 +184,8 @@ void parsing_request(int sockd, http_request *request)
     int i=0;
 
     if ((n = read(sockd, line, MAXLINE) == 0)){
-        return; // Client closes the connection and sends EOF
+        // Client closes the connection and sends EOF
+        return;
     }
 
     if((p = strtok(line, s)) == NULL) // Takes the first row (so GET field)

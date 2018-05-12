@@ -2,13 +2,10 @@
 // Created by ale96 on 11/05/18.
 //
 
-//TODO: TOGLI TUTTI I PERROR NEI FILE ALTRI
 //TODO: aggiusta header
 //TODO: cambia nomi file
 
 #include "server.h"
-
-pid_t child_make(int i, int listensd, int addrlen);
 
 
 static size_t nChildren;
