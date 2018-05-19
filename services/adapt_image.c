@@ -1,12 +1,5 @@
-//
-// Created by ale96 on 07/04/18.
-//
-
-//TODO: Adattare dimensioni immagini in base ai dispositivi (usando WURFL)
-//TODO: Aggiustare dimensioni malloc (o sostituirle con buffer)
-//TODO: aggiungi possibilita' di cambiare formato
-//TODO: controlla il controllo degli errori
-
+//TODO: Adattare dimensioni immagini in base ai dispositivi (usando WURFL ???)
+//TODO: aggiungi possibilita' di cambiare formato immagine (jpg, png, jpeg)
 
 char *global_path = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/images/";
 
@@ -50,7 +43,7 @@ void find_image(char *name, char *path)
  */
 void compress_image(char *source, double q, char *destination, char *format)
 {
-    char *path = malloc(sizeof(char)*100);
+    char *path = malloc(sizeof(char)*DIM_PATH);
     find_image(source, path); // The variable path is set
 
     MagickWand *m_wand = NULL;
@@ -86,7 +79,7 @@ void compress_image(char *source, double q, char *destination, char *format)
 
     // Set the destination path
     char *name;
-    char *real_dest = malloc(sizeof(char)*100);
+    char *real_dest = malloc(sizeof(char)*DIM_PATH);
     strcpy(real_dest, destination);
     if((name = strstr(source, "img")) == NULL)
     {

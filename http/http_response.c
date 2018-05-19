@@ -216,8 +216,8 @@ void page_default(char *protocol, char *method, http_response *response, char *p
  * @Param socket id of client, response to parse
  * @Return: void
  */
-void parsing_response(int sockd, http_response *response) {
-
+void parsing_response(int sockd, http_response *response)
+{
     char *effective_response = malloc(sizeof(char)*DIM_HTML);
     memset(effective_response, 0, sizeof(char)*DIM_HTML);
 
@@ -238,9 +238,7 @@ void parsing_response(int sockd, http_response *response) {
     strcat(effective_response ,"\n");
     strcat(effective_response, response->Body_Response);
 
-    //todo: aggiustare write nella socket
     writen(sockd, effective_response, strlen(effective_response) * sizeof(char));
 
     free(effective_response);
-
 }

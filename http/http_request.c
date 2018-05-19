@@ -1,6 +1,6 @@
 #include "http_management.h"
 
-//TODO: controllo su ciclio while finale (se non setta tutti i parametri ==> BAD REQUEST)
+//TODO: controllo su ciclo while finale (se non setta tutti i parametri ==> BAD REQUEST)
 //todo: aggiustare read dalla socket (usare read_line del prof?? )
 
 // This char is used as SPLITTER for the whole http message
@@ -72,7 +72,6 @@ char *parse_get(char *msg_get)
     free(restore);
     return resource_restore;
 }
-
 char *parse_protocol(char *msg_get)
 {
     char *protocol;
@@ -88,7 +87,6 @@ char *parse_protocol(char *msg_get)
     strcpy(msg_get, restore);
     return protocol;
 }
-
 char *parse_host(char *msg_host)
 {
     char *host;
@@ -110,7 +108,6 @@ char *parse_host(char *msg_host)
     strcpy(msg_host, restore);
     return host;
 }
-
 char *parse_accept(char *msg_accept)
 {
     char *q;
@@ -145,7 +142,6 @@ char *parse_accept(char *msg_accept)
     strcpy(msg_accept, restore);
     return q;
 }
-
 char *parse_userAgent(char *msg_userAgent)
 {
     char *user_agent;

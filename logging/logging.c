@@ -1,8 +1,4 @@
-//
-// Created by ale96 on 28/04/18.
-//
-
-//TODO: DECOMMENTARE syslog quando andra' bene (http management totalmente finito)
+//TODO: DECOMMENTARE syslog quando tutto e' finito
 //TODO: dopo l'HOST va a capo
 
 #include "logging.h"
@@ -32,7 +28,6 @@ char *get_date()
 
     // Get the current time
     current_time = time(NULL);
-
     if (current_time == ((time_t) -1))
     {
         (void) fprintf(stderr, "Failure to obtain the current time.\n");
@@ -41,7 +36,8 @@ char *get_date()
 
     // Convert to local time format
     c_time_string = ctime(&current_time);
-    if (c_time_string == NULL) {
+    if (c_time_string == NULL)
+    {
         (void) fprintf(stderr, "Failure to convert the current time.\n");
         exit(EXIT_FAILURE);
     }
@@ -49,10 +45,8 @@ char *get_date()
     len = (int) strlen(c_time_string);
     c_time_string[len - 1] = '\0';
 
-
     return c_time_string;
 }
-
 
 /**
  * This function write log on two files: a local file "logServer.txt" and the Unix syslog
@@ -78,19 +72,20 @@ void logging(http_request *req, http_response *res)
     // Set the LOCAL FILE log
     memset(log_path, 0, 128);
     errno = 0;
-    if (getcwd(log_path, 128) == NULL || errno != 0) {
+    if (getcwd(log_path, 128) == NULL || errno != 0)
+    {
         perror("getcwd error\n");
         return;
     }
     strcat(log_path, LOG_FILE);
 
     log_file = fopen(log_path, "a");
-    if (log_file == NULL) {
-        fprintf(stderr, "open logging file failed\n");
+    if (log_file == NULL)
+    {
+        fprintf(stderr, "Error on opening logging file\n");
         return;
     }
-
-    fprintf(log_file, "%s %s %s %s '%s' %s %s\n", req->Host, "-", "-", date, req->Request, res->Header, res->Content_Length);
+    fprintf(log_file, "%s %s%s %s '%s' %s %s\n", req->Host, "-", "-", date, req->Request, res->Header, res->Content_Length);
 
     // Deallocation of file and mutex
     fclose(log_file);

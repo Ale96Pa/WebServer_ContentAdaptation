@@ -1,2 +1,2 @@
-gcc -o server http/http_request.c http/http_response.c lock_fcntl.c server_child.c web_child.c services/server_io.c logging/logging.c services/adapt_image.c server.c `pkg-config --cflags --libs MagickWand`
+gcc -o server http/http_request.c http/http_response.c lock_fcntl.c server_child.c web_child.c services/helper_io.c logging/logging.c services/adapt_image.c server.c `pkg-config --cflags --libs MagickWand`
 

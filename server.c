@@ -1,7 +1,3 @@
-//
-// Created by ale96 on 11/05/18.
-//
-
 //TODO: aggiusta header
 //TODO: cambia nomi file
 

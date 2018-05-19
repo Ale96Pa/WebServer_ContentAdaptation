@@ -1,7 +1,6 @@
 #ifndef SERVER_CONTENTADAPTATION_SERVER_H
 #define SERVER_CONTENTADAPTATION_SERVER_H
 
-#include "services/server_io.h"
 #include "services/adapt_image.h"
 #include "services/basics.h"
 #include "logging/logging.h"

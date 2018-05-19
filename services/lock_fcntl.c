@@ -1,22 +1,24 @@
-#include "server.h"
+#include "../server.h"
 
 static struct flock	lock_it, unlock_it;
-static int		lock_fd = -1;
+static int lock_fd = -1;
 		/* fcntl() will fail if my_lock_init() not called */
 
 void my_lock_init(char *pathname)
 {
-  char	lock_file[1024];
+  char lock_file[1024];
 
   /* must copy caller's string, in case it's a constant */
   strncpy(lock_file, pathname, sizeof(lock_file));
-  if ( (lock_fd = mkstemp(lock_file)) < 0) {
-    fprintf(stderr, "errore in mkstemp");
+  if ((lock_fd = mkstemp(lock_file)) < 0)
+  {
+    fprintf(stderr, "Error in mkstemp\n");
     exit(1);
   }
 
-  if (unlink(lock_file) == -1) { 	/* but lock_fd remains open */ 
-    fprintf(stderr, "errore in unlink per %s", lock_file);
+  if (unlink(lock_file) == -1)  /* but lock_fd remains open */
+  {
+    fprintf(stderr, "Error in unlink for %s\n", lock_file);
     exit(1);
   }
   lock_it.l_type = F_WRLCK;
@@ -34,11 +36,12 @@ void my_lock_wait()
 {
   int rc;
     
-  while ( (rc = fcntl(lock_fd, F_SETLKW, &lock_it)) < 0) {
+  while ( (rc = fcntl(lock_fd, F_SETLKW, &lock_it)) < 0)
+  {
     if (errno == EINTR)
       continue;
     else { 	
-      fprintf(stderr, "errore fcntl in my_lock_wait");
+      fprintf(stderr, "Error fcntl in my_lock_wait\n");
       exit(1);
     }
   }
@@ -46,8 +49,9 @@ void my_lock_wait()
 
 void my_lock_release()
 {
-    if (fcntl(lock_fd, F_SETLKW, &unlock_it) < 0) { 	
-      fprintf(stderr, "errore fcntl in my_lock_release");
-      exit(1);
-    }
+  if (fcntl(lock_fd, F_SETLKW, &unlock_it) < 0)
+  {
+    fprintf(stderr, "Error fcntl in my_lock_release\n");
+    exit(1);
+  }
 }

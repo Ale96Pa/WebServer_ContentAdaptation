@@ -2,7 +2,6 @@
 #define SERVER_CONTENTADAPTATION_HTTP_MANAGEMENT_H
 
 #include "../services/basics.h"
-#include "../services/server_io.h"
 #include <fcntl.h>
 #include <time.h>
 
@@ -38,12 +37,10 @@ char *parse_accept(char *whole_msg);
 char *parse_userAgent(char *msg_userAgent);
 void parsing_request(int sockd, http_request *request);
 
-
 http_response *alloc_response();
 void page_not_found(char *protocol, char *method, http_response *response);
 void page_bad_request(char *protocol, char *method, http_response *response);
 void page_default(char *protocol, char *method, http_response *response, char *path, char *last_modified);
 void parsing_response(int sockd, http_response *response);
-
 
 #endif //SERVER_CONTENTADAPTATION_HTTP_MANAGEMENT_H
