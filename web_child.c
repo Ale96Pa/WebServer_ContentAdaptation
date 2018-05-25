@@ -75,7 +75,7 @@ void web_child(int sockfd, http_request *request, http_response *response)
             int num_current_record = count();
             if(num_current_record < MAX_RECORD_IN_DB)
             {
-                
+
             }
             //METTI IMMAGINE NEL DB
             // setta variabile last_modified
