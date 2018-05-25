@@ -109,9 +109,8 @@ void compress_image(char *source, double q, char *destination, char *format)
 void main (void)
 {
     char *path = malloc(sizeof(char)*100);
-    char *dest = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/pages/";
+    char *dest = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/cache_memory/";
     compress_image("img1", 0.8, dest, "jpg");
     free(path);
-
 }
- */
+*/

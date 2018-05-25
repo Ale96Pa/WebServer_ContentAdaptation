@@ -105,6 +105,13 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+    int tr=1;
+    // kill "Address already in use" error message
+    if (setsockopt(listensd,SOL_SOCKET,SO_REUSEADDR,&tr,sizeof(int)) == -1) {
+        perror("setsockopt");
+        exit(1);
+    }
+
     memset((void *)&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_addr.s_addr = htonl(INADDR_ANY);

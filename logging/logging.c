@@ -57,7 +57,12 @@ void logging(http_request *req, http_response *res)
 {
     char *date = get_date();
     char log_path[128];
+    char *request = malloc(sizeof(char)*DIM_LONG);
     FILE *log_file;
+
+    // Set the request field
+    strcpy(request, req->Request);
+    strtok(request, "H");
 
     // Initialize the mutex used for the logging
     pthread_mutex_t mtx;
@@ -66,7 +71,7 @@ void logging(http_request *req, http_response *res)
 
     // Set the REAL log
     set_log();
-    //syslog(LOG_INFO, "%s %s %s %s '%s' %s %s", req->Host, "-", "-", date, req->GET, res->Header, res->Content_Length);
+    //syslog(LOG_INFO, "%s %s %s %s '%s' %s %s", req->Host, "-", "-", date, request, res->Header, res->Content_Length);
     closelog();
 
     // Set the LOCAL FILE log
@@ -85,7 +90,7 @@ void logging(http_request *req, http_response *res)
         fprintf(stderr, "Error on opening logging file\n");
         return;
     }
-    fprintf(log_file, "%s %s%s %s '%s' %s %s\n", req->Host, "-", "-", date, req->Request, res->Header, res->Content_Length);
+    fprintf(log_file, "%s %s%s %s '%s' %s %s\n", req->Host, "-", "-", date, request, res->Header, res->Content_Length);
 
     // Deallocation of file and mutex
     fclose(log_file);

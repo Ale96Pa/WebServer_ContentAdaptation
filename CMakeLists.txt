@@ -7,4 +7,4 @@ include_directories(lib)
 include_directories(/usr/include)
 include_directories(/usr/include/ImageMagick-6)
 
-add_executable(Server_ContentAdaptation http/http_request.c services/helper_io.c testServer.c services/adapt_image.c services/adapt_image.h http/http_response.c http/http_management.h logging/logging.c logging/logging.h server.c server.h server_child.c web_child.c caching/manager_db.c caching/manager_db.h services/basics.h)
+add_executable(Server_ContentAdaptation http/http_request.c services/helper_io.c testServer.c services/adapt_image.c services/adapt_image.h http/http_response.c http/http_management.h logging/logging.c logging/logging.h server.c server.h server_child.c web_child.c services/basics.h)

@@ -9,6 +9,10 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 
+#define PATH_MEMORY_CACHE "cache_memory/"
+#define PATH_SOURCE_IMAGES "images/"
+#define MAX_RECORD_IN_DB 15
+
 // Definire qui le costanti
 
 pid_t child_make(int i, int listenfd, int addrlen);

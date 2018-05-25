@@ -1,7 +1,6 @@
 #include "http_management.h"
 
 //TODO: non si vede immagine nella pagina di default (html?) ===> Prova a risolvere inviando la pagina html come file
-//TODO: aggiustare write nella socket (usare write_line del prof ??)
 
 char *header_html = "<!DOCTYPE html>\n"
                     "<html>\n"
@@ -186,6 +185,15 @@ void page_default(char *protocol, char *method, http_response *response, char *p
         strcpy(response->Body_Response, body);
     }
 
+    // Data field
+    char buf[DIM_LONG];
+    time_t now = time(0);
+    struct tm tm = *gmtime(&now);
+    strftime(buf, sizeof buf, "%a, %d %b %Y %H:%M:%S %Z", &tm);
+    char dataHeader[10] = "Data: ";
+    char *date = strcat(dataHeader, buf);
+    strcpy(response->Date, date);
+
     // Content-Length field
     size_t len = strlen(body);
     char *lenTxt = malloc(sizeof(char)*DIM_SHORT);
@@ -195,15 +203,6 @@ void page_default(char *protocol, char *method, http_response *response, char *p
     strcat(lenTxt, lenHeader);
     strcat(lenTxt, lenStr);
     strcpy(response->Content_Length, lenTxt);
-
-    // Data field
-    char buf[DIM_LONG];
-    time_t now = time(0);
-    struct tm tm = *gmtime(&now);
-    strftime(buf, sizeof buf, "%a, %d %b %Y %H:%M:%S %Z", &tm);
-    char dataHeader[10] = "Data: ";
-    char *date = strcat(dataHeader, buf);
-    strcpy(response->Date, date);
 
     // Last-modified field
     char lm[DIM_SHORT] = "Last-Modified: ";
@@ -238,7 +237,7 @@ void parsing_response(int sockd, http_response *response)
     strcat(effective_response ,"\n");
     strcat(effective_response, response->Body_Response);
 
+    printf("%s\n", effective_response);
     writen(sockd, effective_response, strlen(effective_response) * sizeof(char));
-
     free(effective_response);
 }

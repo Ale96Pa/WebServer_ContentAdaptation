@@ -1,6 +1,6 @@
 #include "server.h"
 
-void web_child(int);
+void web_child(int sockfd, http_request *request, http_response *response);
 void child_main(int listensd, int addrlen);
 
 pid_t child_make(int i, int listensd, int addrlen)
@@ -23,6 +23,8 @@ void child_main(int listensd, int addrlen)
     int	connsd;
     socklen_t clilen;
     struct sockaddr *cliaddr;
+    http_request *request = alloc_request();
+    http_response *response = alloc_response();
 
     if ((cliaddr = (struct sockaddr *)malloc(addrlen)) == NULL)
     {
@@ -38,7 +40,7 @@ void child_main(int listensd, int addrlen)
             exit(1);
         }
         my_lock_release();
-        web_child(connsd);		/* processa la richiesta */
+        web_child(connsd, request, response);		/* processa la richiesta */
         if (close(connsd) == -1) {
             perror("errore in close");
             exit(1);
