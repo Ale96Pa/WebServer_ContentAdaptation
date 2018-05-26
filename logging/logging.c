@@ -16,39 +16,6 @@ void set_log()
 }
 
 /**
- * This function is used to get the current date according to common log format
- * @Param: none
- * @Return: string representing the current date
- */
-char *get_date()
-{
-    time_t current_time;
-    char *c_time_string;
-    int len;
-
-    // Get the current time
-    current_time = time(NULL);
-    if (current_time == ((time_t) -1))
-    {
-        (void) fprintf(stderr, "Failure to obtain the current time.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Convert to local time format
-    c_time_string = ctime(&current_time);
-    if (c_time_string == NULL)
-    {
-        (void) fprintf(stderr, "Failure to convert the current time.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    len = (int) strlen(c_time_string);
-    c_time_string[len - 1] = '\0';
-
-    return c_time_string;
-}
-
-/**
  * This function write log on two files: a local file "logServer.txt" and the Unix syslog
  * @Param: both structures of request and response (from them we get data)
  * @Return: void
@@ -71,7 +38,7 @@ void logging(http_request *req, http_response *res)
 
     // Set the REAL log
     set_log();
-    //syslog(LOG_INFO, "%s %s %s %s '%s' %s %s", req->Host, "-", "-", date, request, res->Header, res->Content_Length);
+    //syslog(LOG_INFO, "%s %s '%s' %s %s", req->Host, date, request, res->Header, res->Content_Length);
     closelog();
 
     // Set the LOCAL FILE log
@@ -90,7 +57,7 @@ void logging(http_request *req, http_response *res)
         fprintf(stderr, "Error on opening logging file\n");
         return;
     }
-    fprintf(log_file, "%s %s%s %s '%s' %s %s\n", req->Host, "-", "-", date, request, res->Header, res->Content_Length);
+    fprintf(log_file, "%s - %s '%s' %s %s\n", req->Host, date, request, res->Header, res->Content_Length);
 
     // Deallocation of file and mutex
     fclose(log_file);

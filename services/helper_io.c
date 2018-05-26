@@ -1,4 +1,5 @@
 #include "basics.h"
+#include <time.h>
 
 /**
  * This function write n Bytes from a buffer
@@ -50,4 +51,37 @@ int readline(int fd, void *vptr, int maxlen)
 
     *ptr = 0;	// To indicate end of the input
     return(n);
+}
+
+/**
+ * This function is used to get the current date according to common log format
+ * @Param: none
+ * @Return: string representing the current date
+ */
+char *get_date()
+{
+    time_t current_time;
+    char *c_time_string;
+    int len;
+
+    // Get the current time
+    current_time = time(NULL);
+    if (current_time == ((time_t) -1))
+    {
+        (void) fprintf(stderr, "Failure to obtain the current time.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Convert to local time format
+    c_time_string = ctime(&current_time);
+    if (c_time_string == NULL)
+    {
+        (void) fprintf(stderr, "Failure to convert the current time.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    len = (int) strlen(c_time_string);
+    c_time_string[len - 1] = '\0';
+
+    return c_time_string;
 }

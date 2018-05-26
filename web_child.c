@@ -60,7 +60,6 @@ void web_child(int sockfd, http_request *request, http_response *response)
 
         // CACHING PER VERIFICARE SE C'E' IMMAGINE RICHIESTA
         select_path_from_img(img, user_agent, q, path_to_catch);
-        printf("Qui arrivo2\n");
 
         if(path_to_catch == NULL)
         {

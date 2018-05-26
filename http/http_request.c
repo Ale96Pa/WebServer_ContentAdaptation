@@ -1,7 +1,7 @@
 #include "http_management.h"
 
 //TODO: controllo su ciclo while finale (se non setta tutti i parametri ==> BAD REQUEST)
-//todo: aggiustare read dalla socket (usare read_line del prof?? )
+//todo: aggiustare read dalla socket (usare read_line del prof?? ) == se uso read_line non esce: VEDI COME USARE !!
 
 // This char is used as SPLITTER for the whole http message
 char* s = "\n";
