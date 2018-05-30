@@ -1,6 +1,5 @@
 #include "http_management.h"
 
-//TODO: controllo su ciclo while finale (se non setta tutti i parametri ==> BAD REQUEST)
 //todo: aggiustare read dalla socket (usare read_line del prof?? ) == se uso read_line non esce: VEDI COME USARE !!
 
 // This char is used as SPLITTER for the whole http message
@@ -40,7 +39,7 @@ char *parse_method(char *msg_method)
     if((method = strtok(msg_method," ")) == NULL)
     {
         fprintf(stderr, "Error in strtok while parsing method\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
     strcpy(method_restore, method);
@@ -58,7 +57,7 @@ char *parse_get(char *msg_get)
     if((strtok(msg_get, "?")) == NULL)
     {
         fprintf(stderr, "Error in strotk while parsing GET field: BAD REQUEST\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
     if((resource = strtok(NULL, ".")) == NULL)
     {
@@ -80,11 +79,12 @@ char *parse_protocol(char *msg_get)
     if((protocol = strstr(msg_get,"HTTP")) == NULL)
     {
         fprintf(stderr, "Error in strstr while parsing GET for protocol\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
-
+    char *new_protocl = strtok(protocol, "\n");
     strcpy(msg_get, restore);
-    return protocol;
+    //printf("PROTOCOL = %s\n", new_protocl);
+    return new_protocl;
 }
 char *parse_host(char *msg_host)
 {
@@ -95,7 +95,7 @@ char *parse_host(char *msg_host)
     if((strtok(msg_host, " ")) == NULL)
     {
         fprintf(stderr, "Error in strtok while parsing Host\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
     if((host = strtok(NULL, "\n")) == NULL)
     {
@@ -115,22 +115,22 @@ char *parse_accept(char *msg_accept)
     if((strtok(msg_accept, "q=")) == NULL)
     {
         fprintf(stderr, "Error in strtok while parsing Accept field\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
     if((strtok(NULL, "q=")) == NULL)
     {
         fprintf(stderr, "Error in strtok while searching factor q\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
     if((q = strtok(NULL, "\n")) == NULL)
     {
         fprintf(stderr, "Error in strtok while searching factor q\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
     if((q = strtok(q, "=")) == NULL)
     {
         fprintf(stderr, "Error in strtok while searching factor q\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
     strcpy(msg_accept, restore);
@@ -146,12 +146,12 @@ char *parse_userAgent(char *msg_userAgent)
     if((strtok(msg_userAgent, " ")) == NULL)
     {
         fprintf(stderr, "Error in strtok while parsing User-Agent\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
     if((user_agent = strtok(NULL, " ")) == NULL)
     {
         fprintf(stderr, "Error in strtok while parsing User-Agent\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
     strcpy(ua_restore, user_agent);

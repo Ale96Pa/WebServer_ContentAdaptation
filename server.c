@@ -143,6 +143,7 @@ int main(int argc, char *argv[])
     for (i=0; i<nChildren; i++)
     {
         pids[i] = child_make(i, listensd, addrLen);
+
     }
 
     //When SIGINT arrives (pressing of Ctrl-C) parents and children ends

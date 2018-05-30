@@ -1,5 +1,6 @@
 #include <sqlite3.h>
 #include "../services/basics.h"
+#include "../http/http_management.h"
 
 sqlite3 *open_connection(void);
 void close_connection(sqlite3 * connection);

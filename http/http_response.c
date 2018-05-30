@@ -156,7 +156,8 @@ void page_bad_request(char *protocol, char *method, http_response *response)
 void page_default(char *protocol, char *method, http_response *response, char *path, char *last_modified)
 {
     // Header field
-    char *protocol_allocate=malloc(sizeof(char)*DIM_SHORT);
+    //char *protocol_allocate=malloc(sizeof(char)*DIM_SHORT);
+    char protocol_allocate[DIM_SHORT];
     strcpy(protocol_allocate, protocol);
     char *header = strcat(protocol_allocate, " 200 OK");
     strcpy(response->Header, header);
@@ -196,7 +197,8 @@ void page_default(char *protocol, char *method, http_response *response, char *p
 
     // Content-Length field
     size_t len = strlen(body);
-    char *lenTxt = malloc(sizeof(char)*DIM_SHORT);
+    //char *lenTxt = malloc(sizeof(char)*DIM_SHORT);
+    char lenTxt[DIM_SHORT];
     char lenHeader[] = "Content-Length: ";
     char lenStr[8];
     snprintf(lenStr, sizeof lenStr, "%zu", len);
@@ -230,9 +232,9 @@ void parsing_response(int sockd, http_response *response)
     strcat(effective_response ,"\n");
     strcat(effective_response, response->Content_Length);
     strcat(effective_response ,"\n");
-    strcat(effective_response, response->Content_Type);
-    strcat(effective_response ,"\n");
     strcat(effective_response, response->Connection);
+    strcat(effective_response ,"\n");
+    strcat(effective_response, response->Content_Type);
     strcat(effective_response ,"\n");
     strcat(effective_response ,"\n");
     strcat(effective_response, response->Body_Response);

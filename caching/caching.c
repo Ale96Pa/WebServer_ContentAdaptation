@@ -1,10 +1,14 @@
 //TODO: aggiornamento di last modified NON funziona
 //TODO: aggiungere una restituzione dell'ID piu' grande possibile
-//TODO: aggiungere commenti
 
 #define _GNU_SOURCE
 #include "caching.h"
 
+/**
+ * This function insert a new record in the DB with elements given in input
+ * @Param: id, path, name, quality, last_modified date, user agent
+ * @Return: void
+ */
 void insert(int id, char *path, char *name, char *q, char *last_modif, char *user_agent)
 {
 	sqlite3 *connection;
@@ -30,6 +34,11 @@ void insert(int id, char *path, char *name, char *q, char *last_modif, char *use
 	close_connection(connection);
 }
 
+/**
+ * Delete an element from DB depending on its ID
+ * @Param: id
+ * @Return: void
+ */
 void delete(int id)
 {
 	sqlite3 *connection;
@@ -55,6 +64,11 @@ void delete(int id)
 	close_connection(connection);
 }
 
+/**
+ * This function return the number of elements in the DB
+ * @Param: void
+ * @Return: number of elements in the DB
+ */
 int count(void)
 {
 	sqlite3_stmt *stmt;
@@ -85,7 +99,11 @@ int count(void)
     return counter;
 }
 
-
+/**
+ * This function calculate the older element with a particular ID
+ * @Param: id
+ * @Return: void
+ */
 void older(char *id)
 {
 	sqlite3_stmt *stmt;
@@ -116,6 +134,11 @@ void older(char *id)
 	close_connection(connection);
 }
 
+/**
+ * This function calculate the older element depending on ID
+ * @Param: id, buffer to load data (last_modif)
+ * @Return: void
+ */
 void older_id(int id,char *last_modif)
 {
     sqlite3 *connection;
@@ -126,7 +149,7 @@ void older_id(int id,char *last_modif)
     int result;
 
     connection = open_connection();
-    asprintf(&query,"SELECT MIN(Last_Modified)  FROM cache WHERE ID='%d';",id);
+    asprintf(&query, "SELECT MIN(Last_Modified)  FROM cache WHERE ID='%d';", id);
 	result = sqlite3_prepare_v2(connection, query, strlen(query), &stmt, NULL);
 
 	if (result != SQLITE_OK)
@@ -147,6 +170,11 @@ void older_id(int id,char *last_modif)
 }
 
 //TODO: malloc necessarie?? ==> AGGIUSTA MISURA MALLOC
+/**
+ * This function update last_modified field only if user-agent and quality are equals to elements already in DB
+ * @Param:
+ * @Return: void
+ */
 void update_lastModified(char *img, char *user_agent, char *quality)
 {
 	sqlite3 *connection;
@@ -155,14 +183,15 @@ void update_lastModified(char *img, char *user_agent, char *quality)
     //char *date = get_date();
     char *date = "2018-8-8";
 
-	int result;
+	int result, id;
 	char *query = (char *)malloc(100);
 	char *sql = (char *)malloc(100);
 	char *ua = (char *)malloc(100);
 	char *q = (char *)malloc(100);
 
+
 	connection=open_connection();
-    sprintf(sql,"SELECT User_Agent,Qualità from cache where Nome = '%s'", img);
+    sprintf(sql, "SELECT User_Agent, Qualità, ID from cache where Nome = '%s'", img);
 							        
 	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
 
@@ -179,13 +208,16 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 		{
 			strcpy(ua, (char *)sqlite3_column_text(stmt,0));
 			strcpy(q,(char *)sqlite3_column_text(stmt,1));
+			id=sqlite3_column_int(stmt,2);
 		}
 
 	} while (result == SQLITE_ROW);
-
-	if(ua ==user_agent && q ==quality)
+/*
+	printf("%d --- %s - %s\n", id, ua, user_agent);
+	printf("%s - %s\n", q, quality);*/
+	if(strcmp(ua, user_agent) == 0 && strcmp(q, quality) == 0)
 	{
-		sprintf(query,"UPDATE cache SET Last_modified = '%s', WHERE Nome = '%s' ",date,img);
+	    sprintf(query,"UPDATE cache SET Last_modified = '%s' AND ID = %d WHERE Nome = '%s' ", date, id, img);
 		result = sqlite3_prepare_v2(connection, query, strlen(query), &stmt, NULL);
 		if (result != SQLITE_OK)
 		{
@@ -197,12 +229,17 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 	close_connection(connection);
 	}
 
-	free(q);
+    free(q);
 	free(ua);
 	free(query);
 	free(sql);
 }
 
+/**
+ * This function return the field last_modified of an image
+ * @Param: img
+ * @Return: void
+ */
 void select_last_modified(char *img, char *last_modif)
 {
 	sqlite3 *connection;
@@ -233,17 +270,21 @@ void select_last_modified(char *img, char *last_modif)
 	close_connection(connection);
 }
 
+/**
+ * This fucntion return the path of an image with a given user-agent and quality
+ * @Param: img
+ * @Return: void
+ */
 void select_path_from_img(char *img, char *user_agent, char *q, char *path)
 {
-	sqlite3 *connection;
+    sqlite3 *connection;
 	sqlite3_stmt *stmt;
 
 	char *sql;
 	int result;
 	connection = open_connection();
-	
 
-	sprintf(sql,"SELECT Path from cache where Nome = '%s' and User_Agent = '%s' and Qualità = '%s'", img, user_agent, q);
+    sprintf(sql,"SELECT Path from cache where Nome = '%s' and User_Agent = '%s' and Qualità = '%s'", img, user_agent, q);
 	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
 
 	if (result != SQLITE_OK)
@@ -252,9 +293,8 @@ void select_path_from_img(char *img, char *user_agent, char *q, char *path)
 		close_connection(connection);
 		exit(EXIT_FAILURE);
 	}
-
 	do {
-		result = sqlite3_step(stmt) ;
+        result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW)
 		{
 			strcpy(path, (char *)sqlite3_column_text(stmt,0));
@@ -279,14 +319,14 @@ int main(void)
 	//insert(1,"home/alessio/","img1","0.5","12-02-2002 11:00","chrome");
 	older(id);
 	select_last_modified("img3", lm);
-	select_path_from_img("img1", "chrome", "0.5", path);
-	//update_lastModified("img1", "Mozilla", "0.8");
+	select_path_from_img("img5", "Mozilla", "0.8", path);
+    update_lastModified("img1", "chrome", "0.5");
 	//older_id(1);
 	//delete(1);
 	//delete(2);
 	//delete(3);
-    //printf("%s\n", path);
-    printf("%s\n%s\n%s\n%d\n", id, lm, path, con);
+    printf("%s\n", path);
+    //printf("%s\n%s\n%s\n%d\n", id, lm, path, con);
     free(id);
     free(lm);
     free(path);

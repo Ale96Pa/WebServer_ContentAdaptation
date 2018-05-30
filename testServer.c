@@ -1,6 +1,9 @@
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include "services/basics.h"
 #include "http/http_management.h"
 #include "logging/logging.h"
+#include "server.h"
 
 
 int main(int argc, char **argv)

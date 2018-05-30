@@ -1,4 +1,4 @@
-//TODO: VEDERE QUALI FILE HEADER
+//TODO: VEDERE FILE HEADER
 //TODO: INSERISCI FUNZIONI PER SAPERE INDIRIZZO IP E NUMERO DI PORTA
 //TODO: VEDI COME INSERIRE QUESTO FILE PER IL FUNZIONAMENTO DEL SERVER
 //TODO: INSERISCI ALTRE IMMAGINI
@@ -11,6 +11,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <ifaddrs.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
 
 
 void set_client_page(char *ip_addr_port)

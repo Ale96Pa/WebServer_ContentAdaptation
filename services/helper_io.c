@@ -1,5 +1,9 @@
 #include "basics.h"
 #include <time.h>
+#include <fcntl.h>
+
+static struct flock	lock_it, unlock_it;
+static int lock_fd = -1;
 
 /**
  * This function write n Bytes from a buffer
@@ -84,4 +88,71 @@ char *get_date()
     c_time_string[len - 1] = '\0';
 
     return c_time_string;
+}
+
+/**
+ * This function is used to initializa a lock: fcntl will fail if thi function is not called
+ * @Param path to lock
+ * @Return: void
+ */
+void my_lock_init(char *pathname)
+{
+    char lock_file[1024];
+
+    // Must copy caller's string, in case it's a constant
+    strncpy(lock_file, pathname, sizeof(lock_file));
+    if ((lock_fd = mkstemp(lock_file)) < 0)
+    {
+        fprintf(stderr, "Error in mkstemp\n");
+        exit(1);
+    }
+
+    if (unlink(lock_file) == -1)  // But lock_fd remains open
+    {
+        fprintf(stderr, "Error in unlink for %s\n", lock_file);
+        exit(1);
+    }
+    lock_it.l_type = F_WRLCK;
+    lock_it.l_whence = SEEK_SET;
+    lock_it.l_start = 0;
+    lock_it.l_len = 0;
+
+    unlock_it.l_type = F_UNLCK;
+    unlock_it.l_whence = SEEK_SET;
+    unlock_it.l_start = 0;
+    unlock_it.l_len = 0;
+}
+
+/**
+ * This function is used to wait a lock
+ * @Param: void
+ * @Return: void
+ */
+void my_lock_wait()
+{
+    int rc;
+
+    while ( (rc = fcntl(lock_fd, F_SETLKW, &lock_it)) < 0)
+    {
+        if (errno == EINTR)
+            continue;
+        else {
+            fprintf(stderr, "Error fcntl in my_lock_wait\n");
+            exit(1);
+        }
+    }
+}
+
+/**
+ * This function is used to release a lock
+ * @Param: void
+ * @Return: void
+ */
+void my_lock_release()
+{
+    if (fcntl(lock_fd, F_SETLKW, &unlock_it) < 0)
+    {
+        fprintf(stderr, "Error fcntl in my_lock_release\n");
+        exit(1);
+    }
 }

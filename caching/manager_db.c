@@ -1,12 +1,16 @@
-//TODO: aggiungi commenti
-
 #define _GNU_SOURCE
 #include "caching.h"
 
+/**
+ * This function is used to open a connection
+ * @Param: void
+ * @Return: open connection
+ */
 sqlite3 * open_connection(void)
 {
 	sqlite3 *connection;
 	int error = sqlite3_open("caching/Cache.db",&connection);
+	//int error = sqlite3_open("Cache.db",&connection);
 	if(error != SQLITE_OK)
 	{
         fprintf(stderr,"Error opening DB\n");
@@ -19,11 +23,21 @@ sqlite3 * open_connection(void)
 	return connection;
 }
 
+/**
+ * This function close a connection
+ * @Param: open connection
+ * @Return: void
+ */
 void close_connection(sqlite3 * conn)
 {
 	sqlite3_close(conn);
 }
 
+/**
+ * //TODO: RIMUOVERE !!!
+ * @Param: arg
+ * @Return:
+ */
 int callback(void *arg, int argc, char **argv, char **colName)
 {
 	int i;
@@ -34,6 +48,11 @@ int callback(void *arg, int argc, char **argv, char **colName)
 	return 0;
 }
 
+/**
+ * This function create a table using for caching
+ * @Param: open connection
+ * @Return: void
+ */
 void create_table(sqlite3 *conn)
 {
 	char *zErrMsg = 0;
@@ -58,4 +77,3 @@ void create_table(sqlite3 *conn)
 	}
 	close_connection(conn);
 }
-

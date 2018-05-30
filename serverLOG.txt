@@ -1,0 +1,24 @@
+Host: 127.0.0.1:5193 - Wed May 30 17:28:05 2018 'GET //client.html?img1.x=91&img1.y=68 ' HTTP/1.1 200 OK Content-Length: 203
+Host: 127.0.0.1:5193 - Wed May 30 17:28:05 2018 'GET //client.html?img1.x=91&img1.y=68 ' HTTP/1.1 200 OK Content-Length: 203
+Host: 127.0.0.1:5193 - Wed May 30 17:28:05 2018 'GET //client.html?img1.x=91&img1.y=68 ' HTTP/1.1 200 OK Content-Length: 203
+Host: 127.0.0.1:5193 - Wed May 30 17:28:52 2018 'GET //client.html?img1.x=153&img1.y=66 ' HTTP/1.1 200 OK Content-Length: 205
+Host: 127.0.0.1:5193 - Wed May 30 17:28:52 2018 'GET //client.html?img1.x=153&img1.y=66 ' HTTP/1.1 200 OK Content-Length: 205
+Host: 127.0.0.1:5193 - Wed May 30 17:28:52 2018 'GET //client.html?img1.x=153&img1.y=66 ' HTTP/1.1 200 OK Content-Length: 205
+Host: 127.0.0.1:5193 - Wed May 30 17:29:54 2018 'GET //client.html?img1.x=116&img1.y=62 ' HTTP/1.1 200 OK Content-Length: 206
+Host: 127.0.0.1:5193 - Wed May 30 17:29:54 2018 'GET //client.html?img1.x=116&img1.y=62 ' HTTP/1.1 200 OK Content-Length: 206
+Host: 127.0.0.1:5193 - Wed May 30 17:29:54 2018 'GET //client.html?img1.x=116&img1.y=62 ' HTTP/1.1 200 OK Content-Length: 206
+Host: 127.0.0.1:5193 - Wed May 30 17:30:22 2018 'GET //client.html?img1.x=169&img1.y=63 ' HTTP/1.1 200 OK Content-Length: 203
+Host: 127.0.0.1:5193 - Wed May 30 17:30:22 2018 'GET //client.html?img1.x=169&img1.y=63 ' HTTP/1.1 200 OK Content-Length: 203
+Host: 127.0.0.1:5193 - Wed May 30 17:30:22 2018 'GET //client.html?img1.x=169&img1.y=63 ' HTTP/1.1 200 OK Content-Length: 203
+Host: 127.0.0.1:5193 - Wed May 30 17:31:51 2018 'GET //client.html?img1.x=145&img1.y=106 ' HTTP/1.1 200 OK Content-Length: 270
+Host: 127.0.0.1:5193 - Wed May 30 17:31:51 2018 'GET //client.html?img1.x=145&img1.y=106 ' HTTP/1.1 200 OK Content-Length: 270
+Host: 127.0.0.1:5193 - Wed May 30 17:31:51 2018 'GET //client.html?img1.x=145&img1.y=106 ' HTTP/1.1 200 OK Content-Length: 270
+Host: 127.0.0.1:5193 - Wed May 30 17:32:39 2018 'GET //client.html?img1.x=74&img1.y=80 ' HTTP/1.1 200 OK Content-Length: 148
+Host: 127.0.0.1:5193 - Wed May 30 17:32:39 2018 'GET //client.html?img1.x=74&img1.y=80 ' HTTP/1.1 200 OK Content-Length: 65
+Host: 127.0.0.1:5193 - Wed May 30 17:32:39 2018 'GET //client.html?img1.x=74&img1.y=80 ' HTTP/1.1 200 OK Content-Length: 65
+Host: 127.0.0.1:5193 - Wed May 30 17:33:10 2018 'GET //client.html?img1.x=99&img1.y=45 ' HTTP/1.1 200 OK Content-Length: 149
+Host: 127.0.0.1:5193 - Wed May 30 17:33:10 2018 'GET //client.html?img1.x=99&img1.y=45 ' HTTP/1.1 200 OK Content-Length: 66
+Host: 127.0.0.1:5193 - Wed May 30 17:33:10 2018 'GET //client.html?img1.x=99&img1.y=45 ' HTTP/1.1 200 OK Content-Length: 66
+Host: 127.0.0.1:5193 - Wed May 30 17:33:58 2018 'GET //client.html?img1.x=142&img1.y=61 ' HTTP/1.1 200 OK Content-Length: 202
+Host: 127.0.0.1:5193 - Wed May 30 17:33:58 2018 'GET //client.html?img1.x=142&img1.y=61 ' HTTP/1.1 200 OK Content-Length: 202
+Host: 127.0.0.1:5193 - Wed May 30 17:33:58 2018 'GET //client.html?img1.x=142&img1.y=61 ' HTTP/1.1 200 OK Content-Length: 202
