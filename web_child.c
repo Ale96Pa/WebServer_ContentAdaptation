@@ -2,7 +2,7 @@
 //TODO: togli immagini anche dalla cartella della cache
 
 #include "server.h"
-#include "caching/caching.h"
+#include "../Server_ContentAdaptation/caching/caching.h"
 
 void web_child(int sockfd, http_request *request, http_response *response)
 {

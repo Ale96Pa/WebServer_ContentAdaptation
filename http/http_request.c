@@ -136,6 +136,7 @@ char *parse_accept(char *msg_accept)
     strcpy(msg_accept, restore);
     return q;
 }
+
 char *parse_userAgent(char *msg_userAgent)
 {
     char *user_agent;
