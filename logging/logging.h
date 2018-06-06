@@ -6,7 +6,7 @@
 #include <pthread.h>
 #include <syslog.h>
 
-#define LOG_FILE  "/serverLOG.txt"
+#define LOG_FILE  "/WebServerLOG.txt"
 
 void logging(http_request *req, http_response *res);
 

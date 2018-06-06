@@ -1,1 +1,0 @@
-gcc -o a http/http_request.c http/http_response.c services/helper_io.c logging/logging.c testServer.c

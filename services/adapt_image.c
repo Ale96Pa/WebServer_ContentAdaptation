@@ -1,5 +1,4 @@
 //TODO: Adattare dimensioni immagini in base ai dispositivi (usando WURFL ???)
-//TODO: INSERISCI TUTTE LE IMMAGINI !!!
 
 char *global_path = "storage/images/";
 
@@ -22,15 +21,43 @@ void find_image(char *name, char *path)
         id_name = 2;
     if(strcmp(name, "img3") == 0)
         id_name = 3;
+    if(strcmp(name, "img4") == 0)
+        id_name = 4;
+    if(strcmp(name, "img5") == 0)
+        id_name = 5;
+    if(strcmp(name, "img6") == 0)
+        id_name = 6;
+    if(strcmp(name, "img7") == 0)
+        id_name = 7;
+    if(strcmp(name, "img8") == 0)
+        id_name = 8;
+    if(strcmp(name, "img9") == 0)
+        id_name = 9;
+    if(strcmp(name, "img10") == 0)
+        id_name = 10;
 
-    // Complete the path referring to each image
+    // Complete the path referring to each image (image's name)
     switch (id_name){
-        case 1: strcat(path, "test1.jpg");
+        case 1: strcat(path, "img1.jpg");
                 break;
-        case 2: strcat(path, "test2.jpg");
+        case 2: strcat(path, "img2.jpg");
                 break;
-        case 3: strcat(path, "test3.jpeg");
+        case 3: strcat(path, "img3.jpeg");
                 break;
+        case 4: strcat(path, "img4.png");
+            break;
+        case 5: strcat(path, "img5.jpeg");
+            break;
+        case 6: strcat(path, "img6.jpg");
+            break;
+        case 7: strcat(path, "img7.jpeg");
+            break;
+        case 8: strcat(path, "img8.jpg");
+            break;
+        case 9: strcat(path, "img9.jpg");
+            break;
+        case 10: strcat(path, "img10.jpg");
+            break;
         default: strcpy(path, "NULL");
                 break;
     }
@@ -103,14 +130,3 @@ void compress_image(char *source, double q, char *destination, char *format)
     free(path);
     free(real_dest);
 }
-
-
-/*
-void main (void)
-{
-    char *path = malloc(sizeof(char)*100);
-    char *dest = "/home/ale96/Documents/internetWeb/project/Server_ContentAdaptation/storage/cache_memory/";
-    compress_image("img3", 0.8, dest, "jpg");
-    free(path);
-}
-*/

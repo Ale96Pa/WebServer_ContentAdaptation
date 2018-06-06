@@ -1,6 +1,6 @@
 #include "http_management.h"
 
-//todo: aggiustare read dalla socket (usare read_line del prof?? ) == se uso read_line non esce: VEDI COME USARE !!
+//todo: AGGIUSTARE Q; togliere \n alla fine
 
 // This char is used as SPLITTER for the whole http message
 char* s = "\n";
@@ -83,7 +83,7 @@ char *parse_protocol(char *msg_get)
     }
     char *new_protocl = strtok(protocol, "\n");
     strcpy(msg_get, restore);
-    //printf("PROTOCOL = %s\n", new_protocl);
+
     return new_protocl;
 }
 char *parse_host(char *msg_host)

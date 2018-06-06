@@ -1,7 +1,6 @@
 //TODO: VEDERE FILE HEADER
 //TODO: INSERISCI FUNZIONI PER SAPERE INDIRIZZO IP E NUMERO DI PORTA
 //TODO: VEDI COME INSERIRE QUESTO FILE PER IL FUNZIONAMENTO DEL SERVER
-//TODO: INSERISCI ALTRE IMMAGINI
 //TODO: inserisci controllo degli errori
 
 #include <stdio.h>
@@ -69,8 +68,8 @@ int main()
     char *url = malloc(sizeof(char)*100);
     memset(url, 0, sizeof(char)*100);
 
-    char *client_path = "/client/ClientPage.html";
-    char *header = "file://";
+    char *client_path = "/ClientPage.html";
+    char *header = "http:/";
     char *dir = get_current_dir_name();
     char *cmd = "xdg-open ";
 
@@ -78,7 +77,9 @@ int main()
     strcat(url, header);
     strcat(url, dir);
     strcat(url, client_path);
+    printf("url: %s\n", url);
+
+    //set_client_page("127.0.0.1:5193");
     system (url);
-    set_client_page("127.0.0.1:5193");
     return 0;
 }

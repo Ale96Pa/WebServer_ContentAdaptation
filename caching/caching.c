@@ -1,6 +1,3 @@
-//TODO: aggiornamento di last modified NON funziona
-//TODO: aggiungere una restituzione dell'ID piu' grande possibile
-
 #define _GNU_SOURCE
 #include "caching.h"
 
@@ -9,7 +6,7 @@
  * @Param: id, path, name, quality, last_modified date, user agent
  * @Return: void
  */
-void insert(int id, char *path, char *name, char *q, char *last_modif, char *user_agent)
+void insert(int id, char *path, char *name, char *q, long int last_modif, char *user_agent)
 {
 	sqlite3 *connection;
 	sqlite3_stmt *stm;
@@ -17,7 +14,7 @@ void insert(int id, char *path, char *name, char *q, char *last_modif, char *use
 	char *query=NULL;
 	int result;
 	connection = open_connection();
-	asprintf(&query,"INSERT INTO cache VALUES('%d','%s','%s','%s','%s','%s');",id,name,path,q,last_modif,user_agent);
+	asprintf(&query,"INSERT INTO cache VALUES('%d','%s','%s','%s','%ld','%s');",id,name,path,q,last_modif,user_agent);
 	
 	sqlite3_prepare_v2(connection,query,strlen(query),&stm,NULL);
 	result=sqlite3_step(stm);
@@ -28,7 +25,6 @@ void insert(int id, char *path, char *name, char *q, char *last_modif, char *use
 		exit(EXIT_FAILURE);
 	}
 
-	/*free stm*/
 	sqlite3_finalize(stm);
 	free(query);
 	close_connection(connection);
@@ -54,14 +50,119 @@ void delete(int id)
 	result = sqlite3_step(stm);
 	if(result!=SQLITE_DONE)
 	{
-		fprintf(stderr,"Error deleting data from DB %s\n", sqlite3_errmsg(connection));
+		fprintf(stderr,"Error deleting data from DB: %s\n", sqlite3_errmsg(connection));
 		exit(EXIT_FAILURE);
 	}
 
-	/*free stm*/
 	sqlite3_finalize(stm);
 	free(query);
 	close_connection(connection);
+}
+
+/**
+ *
+ */
+long int date_int(char *date)
+{
+	char *month=(char*)malloc(5);
+	char *new_day=(char*)malloc(5);
+	size_t len;
+	char *fulldate=(char *)malloc(sizeof(char)*50);
+    char restore[DIM_SHORT];
+    strcpy(restore, date);
+
+    strtok(restore," ");
+	month=strtok(NULL," ");
+
+	char *day=(char*)malloc(2);
+	day=strtok(NULL," ");
+	char *hour=(char*)malloc(2);
+	hour=strtok(NULL,":");
+	char *minuts=(char *)malloc(2);
+	minuts=strtok(NULL,":");
+	char *seconds=(char *)malloc(2);
+	seconds=strtok(NULL," ");
+	char *year=(char*)malloc(5);
+	year=strtok(NULL,"\n");
+	if(strcmp(month,"Jan")==0){
+		month="01";
+	}
+	else if(strcmp(month,"Feb")==0){
+		month="02";
+	}
+	else if(strcmp(month,"Mar")==0){
+		month="03";
+	}
+	else if(strcmp(month,"Apr")==0){
+		month="04";
+	}
+	else if(strcmp(month,"May")==0){
+		month="05";
+	}
+	else if(strcmp(month,"Jun")==0){
+		month="06";
+	}
+	else if(strcmp(month,"Jul")==0){
+		month="07";
+	}
+	else if(strcmp(month,"Aug")==0){
+		month="08";
+	}
+	else if(strcmp(month,"Sept")==0){
+		month="09";
+	}
+	else if(strcmp(month,"Oct")==0){
+		month="10";
+	}
+	else if(strcmp(month,"Nov")==0){
+		month="11";
+	}
+	else if(strcmp(month,"Dec")==0){
+		month="12";
+	}
+	len=strlen(day);
+	if(len!=2){
+		sprintf(new_day,"0%s",day);
+	}
+	else{
+		new_day=day;
+	}
+	sprintf(fulldate,"%s%s%s%s%s%s",year,month,new_day,hour,minuts,seconds);
+	long int int_date = atol(fulldate);
+	free(fulldate);
+	return int_date;
+}
+
+/**
+ *
+ * @param id
+ */
+int sel_max_id()
+{
+    printf("\n");
+    sqlite3 *conn;
+    sqlite3_stmt *stmt;
+    char *sql;
+    int result, id;
+    conn = open_connection();
+
+    sprintf(sql,"select MAX(ID) from cache");
+    result = sqlite3_prepare_v2(conn, sql, strlen(sql), &stmt, NULL);
+    if (result != SQLITE_OK) {
+        fprintf(stderr, "Failed to prepare database in sel_max_id()\n");
+        close_connection(conn);
+        exit(EXIT_FAILURE);
+    }
+    do {
+        result = sqlite3_step(stmt) ;
+        if (result == SQLITE_ROW) {
+            id = sqlite3_column_int(stmt,0);
+            id++;
+        }
+    } while (result == SQLITE_ROW);
+
+    close_connection(conn);
+    return id;
 }
 
 /**
@@ -135,42 +236,6 @@ void older(char *id)
 }
 
 /**
- * This function calculate the older element depending on ID
- * @Param: id, buffer to load data (last_modif)
- * @Return: void
- */
-void older_id(int id,char *last_modif)
-{
-    sqlite3 *connection;
-    sqlite3_stmt *stmt;
-
-    char *errmsg;
-    char *query=NULL;
-    int result;
-
-    connection = open_connection();
-    asprintf(&query, "SELECT MIN(Last_Modified)  FROM cache WHERE ID='%d';", id);
-	result = sqlite3_prepare_v2(connection, query, strlen(query), &stmt, NULL);
-
-	if (result != SQLITE_OK)
-	{
-		fprintf(stderr, "Failed to prepare database in function 'older_id()'\n");
-		close_connection(connection);
-		exit(EXIT_FAILURE);
-	}
-	do {
-		result = sqlite3_step(stmt) ;
-		if (result == SQLITE_ROW)
-		{
-			strcpy(last_modif, (char *)sqlite3_column_text(stmt,0));
-		}
-	} while (result == SQLITE_ROW);
-
-	close_connection(connection );
-}
-
-//TODO: malloc necessarie?? ==> AGGIUSTA MISURA MALLOC
-/**
  * This function update last_modified field only if user-agent and quality are equals to elements already in DB
  * @Param:
  * @Return: void
@@ -180,21 +245,19 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 	sqlite3 *connection;
 	sqlite3_stmt *stmt;
 
-    //char *date = get_date();
-    char *date = "2018-8-8";
+	connection = open_connection();
+
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    char s[64];
+    strftime(s, sizeof(s), "%c", tm);
+    long int date = date_int(s);
 
 	int result, id;
-	char *query = (char *)malloc(100);
-	char *sql = (char *)malloc(100);
-	char *ua = (char *)malloc(100);
-	char *q = (char *)malloc(100);
+	char query[DIM_SHORT], sql[DIM_SHORT], path[DIM_PATH], ua[DIM_SHORT], q[4];
 
-
-	connection=open_connection();
-    sprintf(sql, "SELECT User_Agent, Qualità, ID from cache where Nome = '%s'", img);
-							        
+    sprintf(sql, "SELECT User_Agent, Qualita, ID, Path from cache where Nome = '%s'", img);
 	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
-
 	if (result != SQLITE_OK)
 	{
 		fprintf(stderr, "Failed to prepare database in function 'update_lastModified()'\n");
@@ -208,66 +271,25 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 		{
 			strcpy(ua, (char *)sqlite3_column_text(stmt,0));
 			strcpy(q,(char *)sqlite3_column_text(stmt,1));
-			id=sqlite3_column_int(stmt,2);
-		}
-
-	} while (result == SQLITE_ROW);
-/*
-	printf("%d --- %s - %s\n", id, ua, user_agent);
-	printf("%s - %s\n", q, quality);*/
-	if(strcmp(ua, user_agent) == 0 && strcmp(q, quality) == 0)
-	{
-	    sprintf(query,"UPDATE cache SET Last_modified = '%s' AND ID = %d WHERE Nome = '%s' ", date, id, img);
-		result = sqlite3_prepare_v2(connection, query, strlen(query), &stmt, NULL);
-		if (result != SQLITE_OK)
-		{
-			fprintf(stderr, "Failed to prepare database in function 'update_lastModifed()'\n");
-			close_connection(connection);
-			exit(EXIT_FAILURE);
-		}
-
-	close_connection(connection);
-	}
-
-    free(q);
-	free(ua);
-	free(query);
-	free(sql);
-}
-
-/**
- * This function return the field last_modified of an image
- * @Param: img
- * @Return: void
- */
-void select_last_modified(char *img, char *last_modif)
-{
-	sqlite3 *connection;
-	sqlite3_stmt *stmt;
-
-	char *sql;
-	int result;
-	connection = open_connection();
-
-	sprintf(sql,"SELECT Last_Modified from cache where Nome = '%s'",img);
-	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
-
-	if (result != SQLITE_OK)
-	{
-		fprintf(stderr, "Failed to prepare database in function 'select_last_modifed()'\n");
-		close_connection(connection);
-		exit(EXIT_FAILURE);
-	}
-
-	do {
-		result = sqlite3_step(stmt) ;
-		if (result == SQLITE_ROW)
-		{
-			strcpy(last_modif, (char *)sqlite3_column_text(stmt,0));
-		}
+			id = sqlite3_column_int(stmt,2);
+            strcpy(path,(char *)sqlite3_column_text(stmt,3));
+        }
 	} while (result == SQLITE_ROW);
 
-	close_connection(connection);
+	int result_ua = strcmp(user_agent, ua);
+	int result_q = strcmp(quality, q);
+	printf("ua: %d -- q: %d\n", result_ua, result_q);
+	printf("q: %s, quality: %s\nstrlen(q): %d, strlen(quality): %d\n", q, quality, strlen(q), strlen(quality));
+	if(result_ua == 0 && result_q == 0)
+    {
+        delete(id);
+        insert(id, path,img, q, date,ua);
+    } else{
+	    int newId = sel_max_id();
+        insert(newId, path, img, q, date, ua);
+    }
+
+    close_connection(connection);
 }
 
 /**
@@ -275,17 +297,19 @@ void select_last_modified(char *img, char *last_modif)
  * @Param: img
  * @Return: void
  */
-void select_path_from_img(char *img, char *user_agent, char *q, char *path)
+int select_id_from_img(char *img, char *user_agent, char *q)
 {
+    printf("\n");
     sqlite3 *connection;
 	sqlite3_stmt *stmt;
 
+	int id = 0;
 	char *sql;
 	int result;
 	connection = open_connection();
 
-    sprintf(sql,"SELECT Path from cache where Nome = '%s' and User_Agent = '%s' and Qualità = '%s'", img, user_agent, q);
-	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
+    sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s' and Qualita = '%s'", img, user_agent, q);
+    result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
 
 	if (result != SQLITE_OK)
 	{
@@ -297,38 +321,10 @@ void select_path_from_img(char *img, char *user_agent, char *q, char *path)
         result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW)
 		{
-			strcpy(path, (char *)sqlite3_column_text(stmt,0));
+            id = sqlite3_column_int(stmt, 0);
 		}
 	} while (result == SQLITE_ROW);
 
 	close_connection(connection);
+    return id;
 }
-
-/*
-int main(void)
-{
-	//sqlite3 * c=Connection();
-	//Create_table(c);
-    char *id = (char *) malloc(sizeof(char)*10);
-    char *lm = malloc(sizeof(char)*25);
-    char *path = malloc(sizeof(char)*25);
-    int con = count();
-	//insert(1,"home/alessio/","img1","0.8","12-02-2002 13:57","Mozilla");
-	//insert(2,"/home/","img2","0.7","12-02-2002 12:00","chrome");
-	//insert(3,"/home/alessio/Scarcati","img3","0.8","13-12-2002 12:01","Mozilla");
-	//insert(1,"home/alessio/","img1","0.5","12-02-2002 11:00","chrome");
-	older(id);
-	select_last_modified("img3", lm);
-	select_path_from_img("img5", "Mozilla", "0.8", path);
-    update_lastModified("img1", "chrome", "0.5");
-	//older_id(1);
-	//delete(1);
-	//delete(2);
-	//delete(3);
-    printf("%s\n", path);
-    //printf("%s\n%s\n%s\n%d\n", id, lm, path, con);
-    free(id);
-    free(lm);
-    free(path);
-}
-*/

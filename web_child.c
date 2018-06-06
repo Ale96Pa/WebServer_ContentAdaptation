@@ -1,17 +1,21 @@
-//TODO: cambia nomi variabili
+//todo: http come variabile (non stringa sempre uguale, se possibile!!) ==> stessa cosa q
+//TODO: togli immagini anche dalla cartella della cache
 
 #include "server.h"
 #include "caching/caching.h"
 
 void web_child(int sockfd, http_request *request, http_response *response)
 {
-    int	ntowrite;
-    ssize_t	nread;
-    char line[MAXLINE];
-
     char *method, *img, *protocol, *host, *q, *user_agent;
-    char *path_to_send, *last_modified;
-    char *path_to_catch = (char *) malloc(sizeof(char)*DIM_PATH);
+    char *path_to_send = malloc(sizeof(char)*DIM_PATH);
+    int id_to_catch;
+
+    // Find current date for "Last-Modified" field
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    char date_str[64];
+    strftime(date_str, sizeof(date_str), "%c", tm);
+    long int last_modified = date_int(date_str);
 
     for(;;)
     {
@@ -63,59 +67,54 @@ void web_child(int sockfd, http_request *request, http_response *response)
         //printf("begin msg:\n%s\n%s\n%s\n%s\n%s\n%s\nend msg\n", protocol, method, host, img, q, user_agent);
         //printf("begin request:\n%s\n%s\n%s\n%s\n%s\n", request->Request, request->Accept, request->Host, request->User_agent, request->Connection);
 
-/*
-        printf("funzione caching\n");
-        select_path_from_img(img, user_agent, q, path_to_catch);
-        printf("path: %s\n", path_to_catch);
+        //TODO: la Q di merda mi manda a puttane la funzione !!!!!!!!!!!!!!!!!!! (inserisce \n)
+        //printf("%s\n", q);
+        id_to_catch = select_id_from_img(img, user_agent, "0.8");
 
-        if(strcmp(path_to_catch, "") == 0) // The image isn't in DB
+        if(id_to_catch == 0) // The image isn't in DB
         {
-            printf("L'immagine NON e' nel DB\n");
+            printf("The image isn't in DB\n");
             double quality;
             if((quality = atof(q)) <= 0)
             {
                 fprintf(stderr, "Error in conversion image quality\n");
                 exit(EXIT_FAILURE);
             }
-            compress_image(img, quality, PATH_MEMORY_CACHE, "jpg");
+            compress_image(img, quality, PATH_MEMORY_CACHE, FORMAT_IMG);
             int num_current_record = count();
 
-            // inserisci funzione per ottenere id
-            //todo: togli quando ci sarà funzione
-            int id = 45;
-            //inserisci funzione per ottenere path
-            //todo: modifica il path== PATH_MEMORY_CACHE + nome immagine
-            last_modified = get_date();
-            printf("Last modified: %s\n", last_modified);
+            int id = sel_max_id();
+
+            char *real_path = malloc(sizeof(char)*DIM_PATH);
+            sprintf(real_path, "%s%s.%s", PATH_MEMORY_CACHE, img, FORMAT_IMG);
 
             if(num_current_record < MAX_RECORD_IN_DB)
             {
-                insert(id, PATH_MEMORY_CACHE, img, q, last_modified, user_agent);
+                insert(id, real_path, img, q, last_modified, user_agent);
             }
             else
             {
                 char *id_of_older = malloc(sizeof(char)*7);
                 older(id_of_older);
                 delete(atoi(id_of_older));
-                insert(id, PATH_MEMORY_CACHE, img, q, last_modified, user_agent);
-
+                insert(id, real_path, img, q, last_modified, user_agent);
             }
         }
-        else if(strlen(path_to_catch) > 5) // The image is in DB
+        else if(id_to_catch > 0) // The image is in DB
         {
-            printf("L'immagine e' nel DB\n");
-            update_lastModified(img, user_agent, q);
+            printf("The image is in DB\n");
+            update_lastModified(img, user_agent, "0.8");
         } else {
             page_not_found(protocol, method, response);
             logging(request, response);
             parsing_response(sockfd, response);
             exit(EXIT_SUCCESS);
         }
-*/
-        // TODO: MODIFICARE ASSOLUTAMENTE
-        path_to_send = "storage/cache_memory/img1.jpg";
-        last_modified = "2018-8-8";
-        page_default("HTTP/1.1", method, response, path_to_send, last_modified);
+
+        getcwd(path_to_send, DIM_PATH);
+        sprintf(path_to_send, "%s/storage/cache_memory/%s.%s", path_to_send, img, FORMAT_IMG);
+
+        page_default("HTTP/1.1", method, response, path_to_send, date_str);
         logging(request, response);
         parsing_response(sockfd, response);
 

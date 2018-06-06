@@ -1,1 +1,0 @@
-gcc -o q services/adapt_image.c `pkg-config --cflags --libs MagickWand`

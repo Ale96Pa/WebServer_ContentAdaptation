@@ -14,8 +14,8 @@
 #include <signal.h>
 
 #define PATH_MEMORY_CACHE "storage/cache_memory/"
-#define PATH_SOURCE_IMAGES "storage/images/"
-#define MAX_RECORD_IN_DB 15
+#define MAX_RECORD_IN_DB 7
+#define FORMAT_IMG "jpeg"
 
 #define NUMBER_CHILD 5
 #define SERV_PORT	5193

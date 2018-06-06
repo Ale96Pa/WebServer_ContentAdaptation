@@ -1,8 +1,8 @@
 //TODO: aggiusta header
 //TODO: cambia nomi file
+//TODO: commenta tutto
 
 #include "server.h"
-
 
 static size_t nChildren;
 static uint16_t servPort;
@@ -12,12 +12,11 @@ typedef void Sigfunc(int);
 Sigfunc* signal(int signum, Sigfunc *handler);
 Sigfunc *signal(int signum, Sigfunc *func)
 {
-    struct sigaction      act, oact;
-    /* la struttura sigaction memorizza informazioni riguardanti la
-    manipolazione del segnale */
+    // The struct sigaction save info about signal manipulation
+    struct sigaction act, oact;
 
     act.sa_handler = func;
-    sigemptyset(&act.sa_mask);    /* non occorre bloccare nessun altro segnale */
+    sigemptyset(&act.sa_mask);    // No other signals to block
     act.sa_flags = 0;
     if (signum != SIGALRM)
         act.sa_flags |= SA_RESTART;
@@ -31,13 +30,13 @@ void sig_int(int signo)
     int	i;
 //    void pr_cpu_time(void);
 
-    /* termina tutti i processi child */
+    // End every child processes
     for (i = 0; i < nChildren; i++)
         kill(pids[i], SIGTERM);
-    while (wait(NULL) > 0) ;	/* attende per tutti i processi child */
+    while (wait(NULL) > 0) ;	// Wait for all child
 
     if (errno != ECHILD)  {
-        fprintf(stderr, "errore in wait");
+        fprintf(stderr, "Error in wait\n");
         exit(1);
     }
 
@@ -45,7 +44,7 @@ void sig_int(int signo)
     exit(EXIT_SUCCESS);
 }
 
-/*
+/**
  * argv[1] == NUMERO DI PORTA
  * argv[2] == NUMERO DI FIGLI
  *

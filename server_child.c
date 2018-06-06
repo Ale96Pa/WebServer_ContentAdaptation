@@ -9,16 +9,15 @@ pid_t child_make(int i, int listensd, int addrlen)
 
     if ((pid = fork()) > 0)
     {
-        return pid;		/* processo padre */
+        return pid;		// Parent process
     }
 
     pid = getpid();
-    child_main(listensd, addrlen);	/* non ritorna mai */
+    child_main(listensd, addrlen);
 
     return pid;
 }
 
-// TODO: VEDI se aggiungere int i tra parametri (vedi file lo presti)
 void child_main(int listensd, int addrlen)
 {
     int	connsd;
@@ -41,7 +40,7 @@ void child_main(int listensd, int addrlen)
             exit(1);
         }
         my_lock_release();
-        web_child(connsd, request, response);		/* processa la richiesta */
+        web_child(connsd, request, response); // Function that works
         if (close(connsd) == -1) {
             perror("errore in close");
             exit(1);
