@@ -69,7 +69,7 @@ void page_not_found(char *protocol, char *method, http_response *response)
 
     // Content-Length field/
     size_t len = strlen(body);
-    char *lenTxt = malloc(sizeof(char)*DIM_SHORT);
+    char lenTxt[DIM_SHORT];
     char lenHeader[] = "Content-Length: ";
     char lenStr[8];
     snprintf(lenStr, sizeof lenStr, "%zu", len);
@@ -128,7 +128,7 @@ void page_bad_request(char *protocol, char *method, http_response *response)
 
     // Content-Length field/
     size_t len = strlen(body);
-    char *lenTxt = malloc(sizeof(char)*DIM_SHORT);
+    char lenTxt[DIM_SHORT];
     char lenHeader[] = "Content-Length: ";
     char lenStr[8];
     snprintf(lenStr, sizeof lenStr, "%zu", len);
@@ -175,10 +175,17 @@ void page_default(char *protocol, char *method, http_response *response, char *p
     char *body = malloc(sizeof(char)*DIM_HTML);
     if (strcmp(method, "HEAD") == 0) {
         strcpy(response->Body_Response, "");
-    } else {
+    }/* else {
         strcpy(body, header_html);
         char img_tag[DIM_PATH];
         sprintf(img_tag, "<img src= \"%s\" />\n</body>\n</html>\r", path);
+        strcat(body, img_tag);
+        strcpy(response->Body_Response, body);
+    }*/
+    else {
+        strcpy(body, header_html);
+        char img_tag[DIM_PATH];
+        sprintf(img_tag, "<a href= \"%s\" > Download image </a>\n</body>\n</html>\r", path);
         strcat(body, img_tag);
         strcpy(response->Body_Response, body);
     }

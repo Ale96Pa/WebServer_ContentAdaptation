@@ -1,3 +1,5 @@
+//TODO: SELECT_PATH_FROM_ID ==> Togli la parte commentata, verificando anche il Q
+
 #define _GNU_SOURCE
 #include "caching.h"
 
@@ -278,8 +280,6 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 
 	int result_ua = strcmp(user_agent, ua);
 	int result_q = strcmp(quality, q);
-	printf("ua: %d -- q: %d\n", result_ua, result_q);
-	printf("q: %s, quality: %s\nstrlen(q): %d, strlen(quality): %d\n", q, quality, strlen(q), strlen(quality));
 	if(result_ua == 0 && result_q == 0)
     {
         delete(id);
@@ -293,7 +293,7 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 }
 
 /**
- * This fucntion return the path of an image with a given user-agent and quality
+ * This function return the path of an image with a given user-agent and quality
  * @Param: img
  * @Return: void
  */
@@ -308,8 +308,9 @@ int select_id_from_img(char *img, char *user_agent, char *q)
 	int result;
 	connection = open_connection();
 
-    sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s' and Qualita = '%s'", img, user_agent, q);
-    result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
+    //sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s' and Qualita = '%s'", img, user_agent, q);
+	sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s'", img, user_agent);
+	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
 
 	if (result != SQLITE_OK)
 	{

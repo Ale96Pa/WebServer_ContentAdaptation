@@ -68,7 +68,7 @@ void find_image(char *name, char *path)
  * @Param: source name, quality-factor q, folder destination, format of image
  * @Return: void (the image is copied in destination folder)
  */
-void compress_image(char *source, double q, char *destination, char *format)
+int compress_image(char *source, double q, char *destination, char *format)
 {
     char *path = malloc(sizeof(char)*DIM_PATH);
     find_image(source, path); // The variable path is set
@@ -82,7 +82,8 @@ void compress_image(char *source, double q, char *destination, char *format)
     if(MagickReadImage(m_wand, path) == MagickFalse)
     {
         perror("Error in reading image\n");
-        exit(EXIT_FAILURE);
+        return -1;
+        //exit(EXIT_FAILURE);
     }
 
     /*
@@ -101,7 +102,8 @@ void compress_image(char *source, double q, char *destination, char *format)
     if(MagickSetImageCompressionQuality(m_wand, real_q) == MagickFalse)
     {
         perror("Error in compressing image\n");
-        exit(EXIT_FAILURE);
+        return -1;
+        //exit(EXIT_FAILURE);
     }
 
     // Set the destination path
@@ -111,7 +113,8 @@ void compress_image(char *source, double q, char *destination, char *format)
     if((name = strstr(source, "img")) == NULL)
     {
         perror("Error in finding image's name\n");
-        exit(EXIT_FAILURE);
+        return -1;
+        //exit(EXIT_FAILURE);
     }
     strcat(real_dest, name);
     strcat(real_dest, ".");
@@ -121,7 +124,8 @@ void compress_image(char *source, double q, char *destination, char *format)
     if(MagickWriteImage(m_wand, real_dest) == MagickFalse)
     {
         perror("Error in writing and copy image\n");
-        exit(EXIT_FAILURE);
+        return -1;
+        //exit(EXIT_FAILURE);
     }
 
     // Clean up
@@ -129,4 +133,5 @@ void compress_image(char *source, double q, char *destination, char *format)
     MagickWandTerminus();
     free(path);
     free(real_dest);
+    return 0;
 }

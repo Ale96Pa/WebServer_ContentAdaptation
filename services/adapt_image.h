@@ -5,6 +5,6 @@
 #include "basics.h"
 
 void find_image(char *name, char *path);
-void compress_image(char *name, double q, char *destination, char *format);
+int compress_image(char *name, double q, char *destination, char *format);
 
 #endif //SERVER_CONTENTADAPTATION_ADAPT_IMAGE_H
