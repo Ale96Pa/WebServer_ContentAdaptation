@@ -68,7 +68,7 @@ void web_child(int sockfd, http_request *request, http_response *response)
         //printf("begin msg:\n%s\n%s\n%s\n%s\n%s\n%s\nend msg\n", protocol, method, host, img, q, user_agent);
         //printf("begin request:\n%s\n%s\n%s\n%s\n%s\n", request->Request, request->Accept, request->Host, request->User_agent, request->Connection);
 
-        //todo Q modificato => rimetti "0.8" o forse NON SERVE !!!! 
+        //todo Q modificato => rimetti "0.8" o forse NON SERVE !!!!
         id_to_catch = select_id_from_img(img, user_agent, q);
 
         if(id_to_catch == 0) // The image isn't in DB
