@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     //When SIGINT arrives (pressing of Ctrl-C) parents and children ends
     if (signal(SIGINT, sig_int) == SIG_ERR)
     {
-        fprintf(stderr, "errore in signal");
+        fprintf(stderr, "Error in signal\n");
         exit(1);
     }
 

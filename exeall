@@ -1,2 +1,0 @@
-gcc -o server http/http_request.c http/http_response.c server_child.c web_child.c services/helper_io.c logging/logging.c services/adapt_image.c caching/manager_db.c caching/caching.c server.c `pkg-config --cflags --libs MagickWand` -lsqlite3
-

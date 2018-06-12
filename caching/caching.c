@@ -300,7 +300,7 @@ void update_lastModified(char *img, char *user_agent, char *quality)
 int select_id_from_img(char *img, char *user_agent, char *q)
 {
 	fflush(stdout);
-    printf("\t");
+    printf("\n");
     sqlite3 *connection;
 	sqlite3_stmt *stmt;
 

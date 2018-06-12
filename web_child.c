@@ -1,6 +1,7 @@
 //todo: http come variabile (non stringa sempre uguale, se possibile!!) ==> stessa cosa q
 //TODO: togli immagini anche dalla cartella della cache
 //TODO: bad request stampa lo schifo in CONTENT-LENGTH
+//TODO: adattare pagina html iniziale DINAMICAMENTE con numero di porta e indirizzo IP dell'host
 
 #include "server.h"
 #include "../Server_ContentAdaptation/caching/caching.h"

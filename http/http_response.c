@@ -1,4 +1,4 @@
-//TODO: vedi se modificare o meno COntent-Length di BAD REQUEST
+//TODO: vedi se modificare o meno Content-Length di BAD REQUEST
 
 #include "http_management.h"
 #include "../server.h"
