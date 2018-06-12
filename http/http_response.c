@@ -1,3 +1,5 @@
+//TODO: vedi se modificare o meno COntent-Length di BAD REQUEST
+
 #include "http_management.h"
 #include "../server.h"
 
@@ -126,7 +128,8 @@ void page_bad_request(char *protocol, char *method, http_response *response)
         strcpy(response->Body_Response, body);
     }
 
-    // Content-Length field/
+    // Content-Length field
+    /*
     size_t len = strlen(body);
     char lenTxt[DIM_SHORT];
     char lenHeader[] = "Content-Length: ";
@@ -134,7 +137,9 @@ void page_bad_request(char *protocol, char *method, http_response *response)
     snprintf(lenStr, sizeof lenStr, "%zu", len);
     strcat(lenTxt, lenHeader);
     strcat(lenTxt, lenStr);
-    strcpy(response->Content_Length, lenTxt);
+    strcpy(response->Content_Length, lenTxt);*/
+    strcpy(response->Content_Length, "Content-Length: 213");
+
 
     // Data field
     char buf[DIM_LONG];

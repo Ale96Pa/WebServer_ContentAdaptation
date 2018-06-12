@@ -38,7 +38,7 @@ int callback(void *arg, int argc, char **argv, char **colName)
 	for(i=0; i<argc; i++){
 		printf("%s = %s\t", colName[i], argv[i] ?  : "NULL");
 	}
-	printf("\n");
+	printf("\t");
 	return 0;
 }
 

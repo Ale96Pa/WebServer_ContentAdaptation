@@ -1,10 +1,1 @@
-Host: 127.0.0.1:5193 - Mon Jun 11 08:44:46 2018 'GET /ClientPage.html?img10.x=130&img10.y=132 ' HTTP/1.1 200 OK Content-Length: 289
-Host: 127.0.0.1:5193 - Mon Jun 11 08:44:49 2018 'GET /ClientPage.html?img10.x=126&img10.y=94 ' HTTP/1.1 200 OK Content-Length: 289
-Host: 127.0.0.1:5193 - Mon Jun 11 08:44:53 2018 'GET /ClientPage.html?img9.x=114&img9.y=145 ' HTTP/1.1 200 OK Content-Length: 288
-Host: 127.0.0.1:5193 - Mon Jun 11 08:44:55 2018 'GET /ClientPage.html?img9.x=130&img9.y=135 ' HTTP/1.1 200 OK Content-Length: 288
-Host: 127.0.0.1:5193 - Mon Jun 11 08:45:00 2018 'GET /ClientPage.html?img7.x=139&img7.y=130 ' HTTP/1.1 200 OK Content-Length: 288
-Host: 127.0.0.1:5193 - Mon Jun 11 08:45:01 2018 'GET /ClientPage.html?img7.x=139&img7.y=53 ' HTTP/1.1 200 OK Content-Length: 288
-Host: 127.0.0.1:5193 - Mon Jun 11 08:45:28 2018 'GET /ClientPage.html?img10.x=122&img10.y=79 ' HTTP/1.1 200 OK Content-Length: 289
-Host: 127.0.0.1:5193 - Mon Jun 11 08:45:31 2018 'GET /ClientPage.html?bad.x=94&bad.y=84 ' HTTP/1.1 300 Bad Request ZZZZZZZZð+Content-Length: 213
-Host: 127.0.0.1:5193 - Mon Jun 11 08:45:34 2018 'GET /ClientPage.html?bad.x=128&bad.y=64 ' HTTP/1.1 300 Bad Request ZZZZZZZZð+Content-Length: 213
-Host: 127.0.0.1:5193 - Mon Jun 11 08:45:36 2018 'GET /ClientPage.html?bad.x=157&bad.y=89 ' HTTP/1.1 300 Bad Request ZZZZZZZZð+Content-Length: 213
+Host: 127.0.0.1:5193 - Tue Jun 12 09:18:46 2018 'GET /ClientPage.html?bad.x=131&bad.y=29 ' HTTP/1.1 300 Bad Request Content-Length: 213Host: 127.0.0.1:5193 - Tue Jun 12 09:18:50 2018 'GET /ClientPage.html?bad.x=112&bad.y=96 ' HTTP/1.1 300 Bad Request Content-Length: 213Host: 127.0.0.1:5193 - Tue Jun 12 09:18:57 2018 'GET /ClientPage.html?img9.x=112&img9.y=153 ' HTTP/1.1 200 OK Content-Length: 288Host: 127.0.0.1:5193 - Tue Jun 12 09:19:02 2018 'GET /ClientPage.html?bad.x=180&bad.y=98 ' HTTP/1.1 300 Bad Request Content-Length: 213

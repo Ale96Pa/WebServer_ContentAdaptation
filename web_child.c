@@ -7,6 +7,8 @@
 
 void web_child(int sockfd, http_request *request, http_response *response)
 {
+    fflush(stdout);
+
     char *method, *img, *protocol, *host, *q, *user_agent;
     char *path_to_send = malloc(sizeof(char)*DIM_PATH);
     int id_to_catch;
@@ -126,6 +128,8 @@ void web_child(int sockfd, http_request *request, http_response *response)
         page_default("HTTP/1.1", method, response, path_to_send, date_str);
         logging(request, response);
         parsing_response(sockfd, response);
+
+        fflush(stdout);
 
         //printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", response->Header, response->Server, response->Connection, response->Content_Length, response->Content_Type, response->Date, response->Last_Modified, response->Body_Response);
     }

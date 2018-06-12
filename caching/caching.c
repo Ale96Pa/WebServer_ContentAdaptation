@@ -141,7 +141,7 @@ long int date_int(char *date)
  */
 int sel_max_id()
 {
-    printf("\n");
+    //printf("\n");
     sqlite3 *conn;
     sqlite3_stmt *stmt;
     char *sql;
@@ -299,7 +299,8 @@ void update_lastModified(char *img, char *user_agent, char *quality)
  */
 int select_id_from_img(char *img, char *user_agent, char *q)
 {
-    printf("\n");
+	fflush(stdout);
+    printf("\t");
     sqlite3 *connection;
 	sqlite3_stmt *stmt;
 
