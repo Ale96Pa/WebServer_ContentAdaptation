@@ -1,6 +1,6 @@
 #include "http_management.h"
 
-//todo: AGGIUSTARE Q; togliere \n alla fine
+//todo: AGGIUSTARE Q e PROTOCOL e HOST: togliere \n alla fine (se necessario)
 
 // This char is used as SPLITTER for the whole http message
 char* s = "\n";

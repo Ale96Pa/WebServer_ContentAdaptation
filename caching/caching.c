@@ -1,4 +1,5 @@
 //TODO: SELECT_PATH_FROM_ID ==> Togli la parte commentata, verificando anche il Q
+//TODO: nella delete anche la rimozione dell'immagine dalla cartella
 
 #define _GNU_SOURCE
 #include "caching.h"
@@ -62,7 +63,10 @@ void delete(int id)
 }
 
 /**
- *
+ * This function transform the current date in an int to check the comparisons
+ * (used to delete elements in DB with a LRU approach).
+ * @Param: char pointer used for date as string
+ * @Reutrn: value of date as long int
  */
 long int date_int(char *date)
 {
@@ -136,8 +140,10 @@ long int date_int(char *date)
 }
 
 /**
- *
- * @param id
+ * This function select the element in db with the bigger ID; it's used to
+ * assign a new ID to a new element to insert.
+ * @Param: void
+ * @Return: the bigger ID
  */
 int sel_max_id()
 {

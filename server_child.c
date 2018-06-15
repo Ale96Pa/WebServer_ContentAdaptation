@@ -1,5 +1,9 @@
 #include "server.h"
 
+/**
+ * This functions are used to create processes (child_make) and to do their work
+ * (child_main); in this way there is a modular organization of Server.
+ */
 void web_child(int sockfd, http_request *request, http_response *response);
 void child_main(int listensd, int addrlen);
 

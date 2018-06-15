@@ -13,6 +13,8 @@
 #include <sys/wait.h>
 #include <signal.h>
 
+#define HTTP0 "HTTP/1.0"
+#define HTTP1 "HTTP/1.1"
 #define PATH_MEMORY_CACHE "storage/cache_memory/"
 #define MAX_RECORD_IN_DB 7
 #define FORMAT_IMG "jpeg"

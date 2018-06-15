@@ -1,5 +1,4 @@
 //TODO: DECOMMENTARE syslog quando tutto e' finito
-//TODO: dopo l'HOST va a capo
 
 #include "logging.h"
 

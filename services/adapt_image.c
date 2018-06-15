@@ -45,19 +45,19 @@ void find_image(char *name, char *path)
         case 3: strcat(path, "img3.jpeg");
                 break;
         case 4: strcat(path, "img4.png");
-            break;
+                break;
         case 5: strcat(path, "img5.jpeg");
-            break;
+                break;
         case 6: strcat(path, "img6.jpg");
-            break;
+                break;
         case 7: strcat(path, "img7.jpeg");
-            break;
+                break;
         case 8: strcat(path, "img8.jpg");
-            break;
+                break;
         case 9: strcat(path, "img9.jpg");
-            break;
+                break;
         case 10: strcat(path, "img10.jpg");
-            break;
+                break;
         default: strcpy(path, "NULL");
                 break;
     }

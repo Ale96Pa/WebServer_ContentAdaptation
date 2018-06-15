@@ -1,5 +1,3 @@
-//TODO: vedi se modificare o meno Content-Length di BAD REQUEST
-
 #include "http_management.h"
 #include "../server.h"
 
@@ -44,7 +42,7 @@ void page_not_found(char *protocol, char *method, http_response *response)
     free(protocol_allocate);
 
     // Server field
-    char server[] = "Server: nomeServer test";
+    char server[] = "Server: AGA server";
     strcpy(response->Server, server);
 
     // Content-Type field
@@ -69,15 +67,16 @@ void page_not_found(char *protocol, char *method, http_response *response)
         strcpy(response->Body_Response, body);
     }
 
-    // Content-Length field/
-    size_t len = strlen(body);
+    // Content-Length field
+    /*size_t len = strlen(body);
     char lenTxt[DIM_SHORT];
     char lenHeader[] = "Content-Length: ";
     char lenStr[8];
     snprintf(lenStr, sizeof lenStr, "%zu", len);
     strcat(lenTxt, lenHeader);
     strcat(lenTxt, lenStr);
-    strcpy(response->Content_Length, lenTxt);
+    strcpy(response->Content_Length, lenTxt);*/
+    strcpy(response->Content_Length, "Content-Length: 212");
 
     // Data field
     char buf[DIM_LONG];
@@ -103,7 +102,7 @@ void page_bad_request(char *protocol, char *method, http_response *response)
     strcpy(response->Header, header);
 
     // Server field
-    char server[] = "Server: nomeServer test";
+    char server[] = "Server: AGA server";
     strcpy(response->Server, server);
 
     // Content-Type field
@@ -165,7 +164,7 @@ void page_default(char *protocol, char *method, http_response *response, char *p
     strcpy(response->Header, header);
 
     // Server field
-    char server[] = "Server: nomeServer test\r";
+    char server[] = "Server: AGA server\r";
     strcpy(response->Server, server);
 
     // Content-Type field

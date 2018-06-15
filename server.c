@@ -1,13 +1,12 @@
-//TODO: aggiusta header
-//TODO: cambia nomi file
-//TODO: commenta tutto
-
 #include "server.h"
 
 static size_t nChildren;
 static uint16_t servPort;
 static pid_t *pids;
 
+/**
+ * Control of signal capture receiving a ctrl+C behaviour
+ */
 typedef void Sigfunc(int);
 Sigfunc* signal(int signum, Sigfunc *handler);
 Sigfunc *signal(int signum, Sigfunc *func)
@@ -24,11 +23,9 @@ Sigfunc *signal(int signum, Sigfunc *func)
         return(SIG_ERR);
     return(oact.sa_handler);
 }
-
 void sig_int(int signo)
 {
     int	i;
-//    void pr_cpu_time(void);
 
     // End every child processes
     for (i = 0; i < nChildren; i++)
@@ -40,14 +37,16 @@ void sig_int(int signo)
         exit(1);
     }
 
-//    pr_cpu_time();
     exit(EXIT_SUCCESS);
 }
 
 /**
- * argv[1] == NUMERO DI PORTA
- * argv[2] == NUMERO DI FIGLI
+ * This is the main  function of Server; here we inizialize the connection,
+ * finding the socket descriptor to pass to other functions that work.
  *
+ * @Param (cmd line): argv[1] == port number
+ *                    argv[2] == number of child processes
+ * @Return: EXIT_FAILURE or EXIT_SUCCESS
  */
 int main(int argc, char *argv[])
 {
@@ -117,13 +116,13 @@ int main(int argc, char *argv[])
     servaddr.sin_port = htons(servPort);
     addrLen = sizeof(servaddr);
 
-    //
+    // Assign an IP address
     if ((bind(listensd, (struct sockaddr *) &servaddr, sizeof(servaddr))) < 0) {
         perror("Error in bind\n");
         exit(EXIT_FAILURE);
     }
 
-    //
+    // Keep server listening to request
     if (listen(listensd, BACKLOG) < 0 ) {
         perror("Error in listen\n");
         exit(EXIT_FAILURE);
@@ -131,7 +130,7 @@ int main(int argc, char *argv[])
 
     my_lock_init("/tmp/lock.XXXXXX");
 
-    //
+    // Allocation and creation of children processes
     pids = (pid_t *)calloc(nChildren, sizeof(pid_t));
     if (pids == NULL)
     {

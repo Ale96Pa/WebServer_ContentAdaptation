@@ -1,11 +1,14 @@
-//todo: http come variabile (non stringa sempre uguale, se possibile!!) ==> stessa cosa q
-//TODO: togli immagini anche dalla cartella della cache
-//TODO: bad request stampa lo schifo in CONTENT-LENGTH
 //TODO: adattare pagina html iniziale DINAMICAMENTE con numero di porta e indirizzo IP dell'host
 
 #include "server.h"
 #include "../Server_ContentAdaptation/caching/caching.h"
 
+/**
+ * This function implements the whole work of a child, so it gets the request,
+ * elaborate the response (also with caching mechanism) and mange the logging.
+ * @Param: socked descriptor, request struct, response struct
+ * @Return: void
+ */
 void web_child(int sockfd, http_request *request, http_response *response)
 {
     fflush(stdout);
@@ -68,10 +71,6 @@ void web_child(int sockfd, http_request *request, http_response *response)
             exit(EXIT_SUCCESS);
         }
 
-        //printf("begin msg:\n%s\n%s\n%s\n%s\n%s\n%s\nend msg\n", protocol, method, host, img, q, user_agent);
-        //printf("begin request:\n%s\n%s\n%s\n%s\n%s\n", request->Request, request->Accept, request->Host, request->User_agent, request->Connection);
-
-        //todo Q modificato => rimetti "0.8" o forse NON SERVE !!!!
         id_to_catch = select_id_from_img(img, user_agent, q);
 
         if(id_to_catch == 0) // The image isn't in DB
@@ -99,7 +98,6 @@ void web_child(int sockfd, http_request *request, http_response *response)
 
             if(num_current_record < MAX_RECORD_IN_DB)
             {
-                //todo Q modificato => rimetti "0.8"
                 insert(id, real_path, img, q, last_modified, user_agent);
             }
             else
@@ -107,14 +105,12 @@ void web_child(int sockfd, http_request *request, http_response *response)
                 char *id_of_older = malloc(sizeof(char)*7);
                 older(id_of_older);
                 delete(atoi(id_of_older));
-                //todo Q modificato => rimetti "0.8"
                 insert(id, real_path, img, q, last_modified, user_agent);
             }
         }
         else if(id_to_catch > 0) // The image is in DB
         {
             printf("The image is in DB\n");
-            //todo Q modificato => rimetti "0.8"
             update_lastModified(img, user_agent, q);
         } else {
             page_not_found(protocol, method, response);
@@ -126,13 +122,11 @@ void web_child(int sockfd, http_request *request, http_response *response)
         getcwd(path_to_send, DIM_PATH);
         sprintf(path_to_send, "%s/storage/cache_memory/%s.%s", path_to_send, img, FORMAT_IMG);
 
-        page_default("HTTP/1.1", method, response, path_to_send, date_str);
+        page_default(HTTP1, method, response, path_to_send, date_str);
         logging(request, response);
         parsing_response(sockfd, response);
 
         fflush(stdout);
-
-        //printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", response->Header, response->Server, response->Connection, response->Content_Length, response->Content_Type, response->Date, response->Last_Modified, response->Body_Response);
     }
 
 }
