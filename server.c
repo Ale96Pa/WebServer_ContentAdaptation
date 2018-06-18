@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
                             "Instruction: ./server <port_number> <number_child>\n");
             exit(EXIT_FAILURE);
         }
-        if(nChildren >= 11)
+        if(nChildren >= 12)
         {
             fprintf(stderr, "Error: maximum number of children is 10\n"
                             "Instruction: ./server <port_number> <number_child>\n");
@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 
     int tr=1;
     // kill "Address already in use" error message
-    if (setsockopt(listensd,SOL_SOCKET,SO_REUSEADDR,&tr,sizeof(int)) == -1) {
+    if (setsockopt(listensd, SOL_SOCKET, SO_REUSEADDR, &tr, sizeof(int)) == -1) {
         perror("setsockopt");
         exit(1);
     }
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    for (i=0; i<nChildren; i++)
+    for (i=0; i < nChildren; i++)
     {
         pids[i] = child_make(i, listensd, addrLen);
 

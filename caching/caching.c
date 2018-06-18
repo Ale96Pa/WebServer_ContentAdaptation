@@ -1,6 +1,3 @@
-//TODO: SELECT_PATH_FROM_ID ==> Togli la parte commentata, verificando anche il Q
-//TODO: nella delete anche la rimozione dell'immagine dalla cartella
-
 #define _GNU_SOURCE
 #include "caching.h"
 
@@ -56,8 +53,48 @@ void delete(int id)
 		fprintf(stderr,"Error deleting data from DB: %s\n", sqlite3_errmsg(connection));
 		exit(EXIT_FAILURE);
 	}
-
 	sqlite3_finalize(stm);
+
+	free(query);
+	close_connection(connection);
+}
+
+/**
+ * Delete and remove an element from DB depending on its ID
+ * @Param: id
+ * @Return: void
+ */
+void delete_remove(int id)
+{
+	sqlite3 *connection;
+	sqlite3_stmt *stm;
+    char *query=NULL;
+    int result, status;
+    char imgName[16];
+    char path[DIM_PATH];
+    sel_name(id, imgName);
+
+	connection = open_connection();
+	asprintf(&query,"DELETE FROM cache WHERE ID='%d';", id);
+
+	sqlite3_prepare_v2(connection,query,strlen(query),&stm,NULL);
+
+	result = sqlite3_step(stm);
+	if(result!=SQLITE_DONE)
+	{
+		fprintf(stderr,"Error deleting data from DB: %s\n", sqlite3_errmsg(connection));
+		exit(EXIT_FAILURE);
+	}
+	sqlite3_finalize(stm);
+
+
+	printf("Removing image...\n");
+	sprintf(path, "storage/cache_memory/%s.jpeg", imgName);
+	printf("%s\n", path);
+	if((status = remove(path)) != 0)
+		fprintf(stderr, "Error while removing image from DB\n");
+	printf("Removed %s\n", imgName);
+
 	free(query);
 	close_connection(connection);
 }
@@ -244,6 +281,40 @@ void older(char *id)
 }
 
 /**
+ * This function is used to return the name of an element in the DB given its ID
+ * @Param: id to search, name set
+ * @Return: void
+ */
+void sel_name(int id, char *name)
+{
+	sqlite3 *conn;
+	sqlite3_stmt *stmt;
+
+	char *query = NULL;
+	int result;
+	conn = open_connection();
+	asprintf(&query, "Select Nome from cache where ID='%d'", id);
+
+	result = sqlite3_prepare_v2(conn, query, strlen(query), &stmt, NULL);
+
+	if (result != SQLITE_OK)
+	{
+		fprintf(stderr, "Failed to prepare database\n");
+		close_connection(conn);
+		exit(EXIT_FAILURE);
+	}
+	do {
+		result = sqlite3_step(stmt);
+		if (result == SQLITE_ROW) {
+			strcpy(name, (char *)sqlite3_column_text(stmt, 0));
+		}
+	} while (result == SQLITE_ROW);
+
+	printf("sel_name: %s\n", name);
+	close_connection(conn);
+}
+
+/**
  * This function update last_modified field only if user-agent and quality are equals to elements already in DB
  * @Param:
  * @Return: void
@@ -315,8 +386,7 @@ int select_id_from_img(char *img, char *user_agent, char *q)
 	int result;
 	connection = open_connection();
 
-    //sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s' and Qualita = '%s'", img, user_agent, q);
-	sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s'", img, user_agent);
+    sprintf(sql, "SELECT ID from cache where Nome = '%s' and User_Agent = '%s' and Qualita = '%s'", img, user_agent, q);
 	result = sqlite3_prepare_v2(connection, sql, strlen(sql), &stmt, NULL);
 
 	if (result != SQLITE_OK)

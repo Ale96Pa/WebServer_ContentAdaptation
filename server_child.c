@@ -40,16 +40,14 @@ void child_main(int listensd, int addrlen)
         clilen = addrlen;
         my_lock_wait();
         if ((connsd = accept(listensd, cliaddr, &clilen)) < 0) {
-            perror("errore in accept");
+            perror("Error in accept");
             exit(1);
         }
         my_lock_release();
         web_child(connsd, request, response); // Function that works
         if (close(connsd) == -1) {
-            perror("errore in close");
+            perror("Error in close");
             exit(1);
         }
     }
 }
-
-

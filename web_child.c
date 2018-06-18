@@ -104,7 +104,7 @@ void web_child(int sockfd, http_request *request, http_response *response)
             {
                 char *id_of_older = malloc(sizeof(char)*7);
                 older(id_of_older);
-                delete(atoi(id_of_older));
+                delete_remove(atoi(id_of_older));
                 insert(id, real_path, img, q, last_modified, user_agent);
             }
         }

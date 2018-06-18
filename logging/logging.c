@@ -1,5 +1,3 @@
-//TODO: DECOMMENTARE syslog quando tutto e' finito
-
 #include "logging.h"
 
 /**
@@ -37,7 +35,7 @@ void logging(http_request *req, http_response *res)
 
     // Set the REAL log
     set_log();
-    //syslog(LOG_INFO, "%s %s '%s' %s %s", req->Host, date, request, res->Header, res->Content_Length);
+    syslog(LOG_INFO, "%s %s '%s' %s %s", req->Host, date, request, res->Header, res->Content_Length);
     closelog();
 
     // Set the LOCAL FILE log

@@ -19,7 +19,7 @@
 #define MAX_RECORD_IN_DB 7
 #define FORMAT_IMG "jpeg"
 
-#define NUMBER_CHILD 5
+#define NUMBER_CHILD 7
 #define SERV_PORT	5193
 #define BACKLOG		10
 
