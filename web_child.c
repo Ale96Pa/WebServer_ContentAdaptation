@@ -1,5 +1,3 @@
-//TODO: adattare pagina html iniziale DINAMICAMENTE con numero di porta e indirizzo IP dell'host
-
 #include "server.h"
 #include "../Server_ContentAdaptation/caching/caching.h"
 

@@ -97,6 +97,8 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
+    open_page(servPort);
+
     // Put the server listening to request
     if ((listensd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
         perror("Error in socket\n");

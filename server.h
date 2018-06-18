@@ -5,6 +5,7 @@
 #include "http/http_management.h"
 #include "services/adapt_image.h"
 #include "logging/logging.h"
+#include "storage/client/client.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
