@@ -18609,3 +18609,16 @@ Host: 127.0.0.1:5193
 Host: 127.0.0.1:5193
  - Mon Jun 18 17:36:37 2018 'GET /ClientPage.html?img10.x=163&img10.y=87 ' HTTP/1.1 200 OK
  Content-Length: 289
+Host: 127.0.0.1:25000 - Mon Jun 18 19:08:11 2018 'GET /ClientPage.html?bad.x=178&bad.y=60 ' HTTP/1.1 300 Bad Request Content-Length: 213
+Host: 127.0.0.1:25080 - Mon Jun 18 19:08:54 2018 'GET /ClientPage.html?img8.x=104&img8.y=138 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:08:56 2018 'GET /ClientPage.html?img7.x=106&img7.y=143 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:09:00 2018 'GET /ClientPage.html?img7.x=122&img7.y=153 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:09:07 2018 'GET /ClientPage.html?img10.x=131&img10.y=67 ' HTTP/1.1 200 OK Content-Length: 289
+Host: 127.0.0.1:25080 - Mon Jun 18 19:09:14 2018 'GET /ClientPage.html?img2.x=163&img2.y=48 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:10:20 2018 'GET /ClientPage.html?img6.x=134&img6.y=130 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:10:25 2018 'GET /ClientPage.html?img9.x=143&img9.y=19 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:10:30 2018 'GET /ClientPage.html?img1.x=146&img1.y=126 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:11:02 2018 'GET /ClientPage.html?img4.x=145&img4.y=155 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:11:07 2018 'GET /ClientPage.html?img8.x=136&img8.y=18 ' HTTP/1.1 200 OK Content-Length: 288
+Host: 127.0.0.1:25080 - Mon Jun 18 19:11:14 2018 'GET /ClientPage.html?img10.x=146&img10.y=152 ' HTTP/1.1 200 OK Content-Length: 289
+Host: 127.0.0.1:25080 - Mon Jun 18 19:11:20 2018 'GET /ClientPage.html?bad.x=148&bad.y=63 ' HTTP/1.1 300 Bad Request Content-Length: 213

@@ -87,13 +87,9 @@ void delete_remove(int id)
 	}
 	sqlite3_finalize(stm);
 
-
-	printf("Removing image...\n");
 	sprintf(path, "storage/cache_memory/%s.jpeg", imgName);
-	printf("%s\n", path);
 	if((status = remove(path)) != 0)
 		fprintf(stderr, "Error while removing image from DB\n");
-	printf("Removed %s\n", imgName);
 
 	free(query);
 	close_connection(connection);
@@ -310,7 +306,6 @@ void sel_name(int id, char *name)
 		}
 	} while (result == SQLITE_ROW);
 
-	printf("sel_name: %s\n", name);
 	close_connection(conn);
 }
 
