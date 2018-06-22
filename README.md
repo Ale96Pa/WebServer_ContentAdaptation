@@ -1,10 +1,18 @@
 # WebServer_ContentAdaptation
-
-#### Internet and Web Engineering project
+## AGA Server
 
 Project focus: realize a concurrent Web server that adapt dinamically the static contents depending on device-client features.
-Team composed by three people.
+
+Course: Ingegneria di Internet e Web
+
+University: Università di Roma Tor Vergata
+
+Team: 3 people
 
 ### Requirements
-
+ 
+ .....
+ 
 ### Installation and Instructions
+
+.....
