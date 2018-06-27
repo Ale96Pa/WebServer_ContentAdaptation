@@ -23,10 +23,13 @@ $ source instal
 Three scenarios for the configuration:
 
 1) $ ./server
+
 The default value are set (port: 5193, 7 child).
 
 2) $ ./server 1234
+
 The port 1234 and default number of child (7) are set.
 
 3) $ ./server 1234 5
+
 The port 1234 and 5 child are set.
