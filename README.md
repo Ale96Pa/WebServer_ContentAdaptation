@@ -18,9 +18,12 @@ Team: 3 people
 ### Installation and Instructions
 
 To install the executable file:
+
 $ source instal
 
 Three scenarios for the configuration:
+
+
 
 1) $ ./server
 
