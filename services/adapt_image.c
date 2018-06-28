@@ -72,7 +72,6 @@ int compress_image(char *source, double q, char *destination, char *format)
     find_image(source, path); // The variable path is set
 
     MagickWand *m_wand = NULL;
-    size_t width,height;
     MagickWandGenesis();
     m_wand = NewMagickWand();
 
@@ -84,15 +83,15 @@ int compress_image(char *source, double q, char *destination, char *format)
         //exit(EXIT_FAILURE);
     }
 
-    /*
-    // Get the image's width and height for resizing (optional)
-    width = MagickGetImageWidth(m_wand);
-    height = MagickGetImageHeight(m_wand);
-    // Cut them in half but make sure they don't underflow
-    if((width /= 2) < 1)width = 1;
-    if((height /= 2) < 1)height = 1;
+
     // Resize the image using information about device
-    //MagickResizeImage(m_wand,width/2,height/2,LanczosFilter,1);
+    /*
+    int sizes[2];
+    memset(sizes, 0, 2*sizeof(int));
+    get_sizes(sizes);
+    int width = sizes[0];
+    int height = sizes[1];
+    MagickResizeImage(m_wand,(size_t)width, (size_t)height,LanczosFilter,1);
     */
 
     // Set the compression quality

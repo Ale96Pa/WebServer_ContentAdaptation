@@ -59,7 +59,7 @@ char *parse_get(char *msg_get)
     }
     if((resource = strtok(NULL, ".")) == NULL)
     {
-        fprintf(stderr, "Error in strtok while parsing GET field\n");
+        //fprintf(stderr, "Error in strtok while parsing GET field\n");
         exit(EXIT_FAILURE);
     }
 
