@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
                             "Instruction: ./server <port_number> <number_child>\n");
             exit(EXIT_FAILURE);
         }
-        if(nChildren >= 12)
+        if(nChildren >= 14)
         {
             fprintf(stderr, "Error: maximum number of children is 10\n"
                             "Instruction: ./server <port_number> <number_child>\n");

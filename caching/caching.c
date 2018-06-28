@@ -311,7 +311,7 @@ void sel_name(int id, char *name)
 
 /**
  * This function update last_modified field only if user-agent and quality are equals to elements already in DB
- * @Param:
+ * @Param: image, user-agent and quality
  * @Return: void
  */
 void update_lastModified(char *img, char *user_agent, char *quality)

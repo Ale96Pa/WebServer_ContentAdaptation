@@ -1,5 +1,3 @@
-//TODO: Adattare dimensioni immagini in base ai dispositivi (usando WURFL ???)
-
 char *global_path = "storage/images/";
 
 #include "adapt_image.h"
