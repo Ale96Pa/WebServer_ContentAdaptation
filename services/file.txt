@@ -1,0 +1,12 @@
+Asus-Laptop:720*480
+Samsung-Galaxy-Note-8:1280*720
+Dell-XPS:1280*720
+Asus-Zenphone:720*480
+Nokia-Xperia-S:248*177
+Iphone-X:1280*720
+HP-Laptop:720*480
+Samsung-Galaxy-S9:720*480
+Asus-Zenbook:300*400
+Nokia-3310:180*160
+Smartphone-XS:150*105
+Acer-LP456:1000*500
